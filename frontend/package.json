@@ -1,7 +1,7 @@
 {
   "name": "webpack_boilerplate",
   "version": "1.0.0",
-  "description": "웹팩 보일러플레이트",
+  "description": "web-moneybook-6",
   "main": "index.js",
   "scripts": {
     "build": "webpack-dev-server --open --config webpack.dev.js",
