@@ -1,0 +1,47 @@
+{
+  "name": "webpack_boilerplate",
+  "version": "1.0.0",
+  "description": "web-moneybook-6",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack-dev-server --open --config webpack.dev.js",
+    "build:production": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woowa-techcamp-2022/web-moneybook-6.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/woowa-techcamp-2022/web-moneybook-6"
+  },
+  "homepage": "https://github.com/woowa-techcamp-2022/web-moneybook-6#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.18.6",
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "core-js": "^3.23.5",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "prettier": "^2.7.1",
+    "sass-loader": "^13.0.2",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "node-sass": "^7.0.1"
+  }
+}
