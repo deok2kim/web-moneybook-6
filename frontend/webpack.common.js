@@ -29,7 +29,6 @@ const config = {
             options: {
               // useRelativePath: true,
               name: "images/[name].[ext]?[hash]",
-              // publicPath: "./dist/",
               limit: 10000,
             },
           },
