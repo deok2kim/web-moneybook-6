@@ -27,7 +27,6 @@ const config = {
           {
             loader: "url-loader",
             options: {
-              // useRelativePath: true,
               name: "images/[name].[ext]?[hash]",
               limit: 10000,
             },
