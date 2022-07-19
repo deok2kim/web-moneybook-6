@@ -1,11 +1,11 @@
-const commonConfig = require("./webpack.common");
-const { merge } = require("webpack-merge");
+const commonConfig = require('./webpack.common');
+const { merge } = require('webpack-merge');
 
 module.exports = merge(commonConfig, {
-  mode: "development",
-  devtool: "inline-source-map",
+  mode: 'development',
+  devtool: 'inline-source-map',
   devServer: {
-    static: "./dist",
+    static: './dist',
     port: 9000,
     hot: true,
   },
