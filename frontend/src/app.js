@@ -1,5 +1,7 @@
 import Component from '@/utils/Component';
-
+import MainPage from '@/pages/MainPage';
+import CalendarPage from '@/pages/CalendarPage';
+import StatisticsPage from '@/pages/StatisticsPage';
 class App extends Component {
   template() {
     return `
@@ -11,6 +13,38 @@ class App extends Component {
       </header>
       <div class="body"></div>
     `;
+  }
+
+  setEvent() {
+    this.$target.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (e.target.tagName === 'A') {
+        const { pathname } = e.target;
+        window.history.pushState({}, {}, pathname);
+        this.route();
+      }
+    });
+  }
+
+  route() {
+    const $body = document.querySelector('.body');
+    $body.innerHTML = '';
+
+    const { pathname } = location;
+    if (pathname === '/') {
+      new MainPage($body).render();
+    } else if (pathname === '/calendar') {
+      new CalendarPage($body).render();
+    } else if (pathname === '/statistics') {
+      new StatisticsPage($body).render();
+    } else {
+      $body.innerHTML = '<h1>404 NOT FOUND</h1>';
+    }
+  }
+
+  init() {
+    this.route();
+    window.addEventListener('popstate', () => this.route());
   }
 }
 

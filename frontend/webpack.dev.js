@@ -8,5 +8,6 @@ module.exports = merge(commonConfig, {
     static: './dist',
     port: 9000,
     hot: true,
+    historyApiFallback: true,
   },
 });
