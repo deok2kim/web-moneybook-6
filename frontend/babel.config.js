@@ -3,30 +3,30 @@ module.exports = function (api) {
 
   const presets = [
     [
-      "@babel/preset-env",
+      '@babel/preset-env',
       {
-        targets: "> 0.25%, not dead",
-        useBuiltIns: "usage", // 필요한 것만
+        targets: '> 0.25%, not dead',
+        useBuiltIns: 'usage', // 필요한 것만
         corejs: 3,
         modules: false, // es6(false) vs commonjs(true)
-      }
-    ]
-  ]
+      },
+    ],
+  ];
 
   const plugins = [
     [
-      "module-resolver",
+      'module-resolver',
       {
-        root: ["./src"],
+        root: ['./src'],
         alias: {
-          imgs: "./pulic/images",
-        }
-      }
-    ]
-  ]
+          imgs: './pulic/images',
+        },
+      },
+    ],
+  ];
 
   return {
     presets,
-    plugins
-  }
+    plugins,
+  };
 };
