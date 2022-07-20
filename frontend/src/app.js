@@ -2,6 +2,7 @@ import Component from '@/utils/Component';
 import MainPage from '@/pages/MainPage';
 import CalendarPage from '@/pages/CalendarPage';
 import StatisticsPage from '@/pages/StatisticsPage';
+
 class App extends Component {
   template() {
     return `
@@ -32,11 +33,11 @@ class App extends Component {
 
     const { pathname } = location;
     if (pathname === '/') {
-      new MainPage($body).render();
+      new MainPage($body);
     } else if (pathname === '/calendar') {
-      new CalendarPage($body).render();
+      new CalendarPage($body);
     } else if (pathname === '/statistics') {
-      new StatisticsPage($body).render();
+      new StatisticsPage($body);
     } else {
       $body.innerHTML = '<h1>404 NOT FOUND</h1>';
     }
