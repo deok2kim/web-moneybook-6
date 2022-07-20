@@ -2,6 +2,8 @@ import Component from '@/utils/Component';
 import MainPage from '@/pages/MainPage';
 import CalendarPage from '@/pages/CalendarPage';
 import StatisticsPage from '@/pages/StatisticsPage';
+import Header from '@/components/Header';
+import '@/assets/styles/app.scss';
 
 class App extends Component {
   template() {
@@ -44,6 +46,7 @@ class App extends Component {
   }
 
   init() {
+    new Header(document.querySelector('header'));
     this.route();
     window.addEventListener('popstate', () => this.route());
   }
