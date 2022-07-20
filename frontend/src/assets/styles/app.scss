@@ -1,0 +1,13 @@
+header {
+  position: absolute;
+  border-radius: 10px;
+  border: 1px solid $line;
+  top: 0;
+  width: 100%;
+  background: $primary;
+  padding: 28px;
+  display: flex;
+  justify-content: center;
+  gap: 210px;
+  align-items: center;
+}
