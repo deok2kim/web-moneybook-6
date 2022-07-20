@@ -34,6 +34,12 @@ const config = {
       },
     ],
   },
+  resolve: {
+    extensions: ['.js'],
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    },
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'style.css',
@@ -42,6 +48,7 @@ const config = {
       template: path.resolve(__dirname, './public/index.html'),
       inject: true,
       filename: path.resolve(__dirname, './dist/index.html'),
+      type: 'module',
     }),
     new CleanWebpackPlugin({ filename: 'build.js' }),
   ],
