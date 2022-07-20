@@ -17,11 +17,24 @@ const config = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(sa|sc|c)ss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        test: /\.svg$/,
+        type: 'asset/inline',
       },
       {
-        test: /\.(png|jpe?g|gif|svg|ico)$/,
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              additionalData: `@import '@/assets/styles/_colors.scss'; @import '@/assets/styles/global.scss';`,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif|ico)$/,
         use: [
           {
             loader: 'url-loader',
