@@ -1,4 +1,5 @@
 header {
+  z-index: -1;
   position: absolute;
   border-radius: 10px;
   border: 1px solid $line;
@@ -10,4 +11,8 @@ header {
   justify-content: center;
   gap: 210px;
   align-items: center;
+}
+
+#App {
+  @include flex-center();
 }

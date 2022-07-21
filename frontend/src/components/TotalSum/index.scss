@@ -1,0 +1,23 @@
+.totalSum {
+  @include flex-center();
+  width: 842px;
+  justify-content: space-between;
+  &__container {
+    @include flex-center();
+    justify-content: space-between;
+    div {
+      @include flex-center();
+      justify-content: space-between;
+      font-family: 'Noto Sans KR';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      color: #888888;
+      flex: none;
+      order: 0;
+      flex-grow: 0;
+      margin-left: 15px;
+    }
+  }
+}
