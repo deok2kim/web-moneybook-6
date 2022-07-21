@@ -28,7 +28,7 @@ const config = {
           {
             loader: 'sass-loader',
             options: {
-              additionalData: `@import '@/assets/styles/_colors.scss'; @import '@/assets/styles/global.scss'; @import '@/assets/styles/reset.scss';`,
+              additionalData: `@import '@/assets/styles/_colors.scss'; @import '@/assets/styles/global.scss'; @import '@/assets/styles/reset.scss'; @import '@/assets/styles/_mixin.scss';`,
             },
           },
         ],

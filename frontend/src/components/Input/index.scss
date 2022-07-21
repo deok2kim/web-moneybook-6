@@ -1,0 +1,64 @@
+.input {
+  @include flex-center();
+  width: 904px;
+  height: 76px;
+  background: $offwhite;
+  border: 1px solid $line;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
+
+  .divider {
+    width: 1px;
+    height: 44px;
+    background: $line;
+  }
+
+  .input-wrapper {
+    padding: 16px 24px;
+    @include flex(column, center, start);
+    gap: 4px;
+    width: 140px;
+  }
+
+  .input-wrapper--long {
+    width: 220px;
+  }
+
+  &__title {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    text-transform: uppercase;
+    color: $primary;
+  }
+
+  &__content__input {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23px;
+    text-transform: uppercase;
+    width: 100%;
+  }
+  &__content__text {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23px;
+    text-transform: uppercase;
+    width: 5px;
+  }
+
+  &__input-wrapper {
+    @include flex(row, start, center);
+    gap: 5px;
+  }
+
+  .save-btn {
+    margin: 0 14px 0 0;
+  }
+}
