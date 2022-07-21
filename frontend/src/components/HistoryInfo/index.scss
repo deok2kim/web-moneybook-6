@@ -1,0 +1,28 @@
+.history-info {
+  width: 848px;
+  height: 28px;
+  margin: 40px;
+  @include flex(row, space-between, center);
+  color: $primary;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+
+  &__title {
+    font-size: 22px;
+  }
+
+  &__filter {
+    @include flex(row, center, center);
+    gap: 12px;
+  }
+
+  &__content {
+    font-size: 18px;
+  }
+
+  &__wrapper {
+    @include flex(row, center, center);
+    gap: 8px;
+  }
+}
