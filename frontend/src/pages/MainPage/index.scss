@@ -1,0 +1,7 @@
+.mainPage {
+  @include flex(column, none, center);
+}
+
+.history-container {
+  width: 848px;
+}

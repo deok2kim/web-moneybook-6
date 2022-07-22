@@ -1,0 +1,28 @@
+.dropdown {
+  @include flex(column, center, start);
+
+  .title-wrapper {
+    width: 100%;
+    &:hover {
+      background: $background;
+      border-radius: 10px;
+    }
+  }
+
+  &__title {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    @include flex(column, center, start);
+    padding: 16px;
+  }
+
+  .divider {
+    width: 100px;
+    height: 1px;
+    background: $line;
+    margin: 0 16px;
+  }
+}
