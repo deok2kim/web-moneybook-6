@@ -7,7 +7,7 @@ import Dropdown from '../Dorpdown';
 
 export default class Input extends Component {
   template() {
-    return `
+    return /*html*/ `
       <section class="input">
         <div class="input-wrapper">
           <p class="input__title">날짜</p>

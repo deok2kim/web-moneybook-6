@@ -1,0 +1,78 @@
+.history-item {
+  @include flex(row, center, center);
+  height: 70px;
+  border-top: 1px solid $line;
+  border-bottom: 1px solid $line;
+
+  &__content-wrapper {
+    @include flex(row, start, center);
+    flex: 1;
+    gap: 10px;
+  }
+  &__category {
+    width: 90px;
+  }
+  &__pay-wrapper {
+    @include flex(row, space-between, center);
+    flex: 1;
+  }
+
+  &__payment-method {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: $body;
+  }
+
+  &__content {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: $titleActive;
+  }
+
+  &__amount {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: $titleActive;
+  }
+}
+
+.history-header {
+  @include flex(row, space-between, center);
+
+  &__date {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: $titleActive;
+  }
+  &__amountTotal,
+  &__dayname {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: $body;
+  }
+
+  &__day-wrapper {
+    @include flex(row, space-between, center);
+    gap: 8px;
+  }
+}
+
+.history {
+  @include flex(column, none, none);
+  gap: 32px;
+}
