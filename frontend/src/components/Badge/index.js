@@ -6,7 +6,7 @@ export default class Badge extends Component {
     const { title } = this.state;
     return /*html*/ `
       <div class="badge">
-        <p>${title}</p>
+        <p class="badge__title">${title}</p>
       </div>
     `;
   }
