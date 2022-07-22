@@ -1,4 +1,5 @@
 import Component from '@/utils/Component';
+
 import './index.scss';
 import Badge from '@/components/Badge';
 

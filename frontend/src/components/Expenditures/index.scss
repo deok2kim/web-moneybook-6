@@ -1,0 +1,31 @@
+.expenditures {
+  width: 372px;
+  height: 441px;
+
+  &__text {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    padding: 0px;
+    gap: 8px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 22px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    color: #222222;
+  }
+
+  &__list--category-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    width: 372px;
+    height: 441px;
+  }
+}

@@ -1,0 +1,9 @@
+.statisticsCard {
+  @include flex-center;
+  width: 848px;
+  height: 565px;
+  background: $white;
+  border: 1px solid $chartCardLine;
+  box-shadow: 0px 4px 4px rgba($black, 0.1), 0px 4px 20px rgba($black, 0.1);
+  border-radius: 10px;
+}

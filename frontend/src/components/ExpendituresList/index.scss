@@ -1,0 +1,51 @@
+.expenditures__list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px;
+  width: 372px;
+  height: 63px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  border-bottom: 1px $line solid;
+  &-badge--item-badge {
+    @include flex-center();
+    flex-direction: row;
+    padding: 4px 8px;
+    gap: 10px;
+    width: 92px;
+    height: 30px;
+    border-radius: 999px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+  &-text--item-percent {
+    width: 40px;
+    height: 22px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #1e2222;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+  &-text--item-amount {
+    width: 160px;
+    height: 22px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: right;
+    color: #1e2222;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+  }
+}
