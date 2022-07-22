@@ -5,11 +5,11 @@ export default class Dropdown extends Component {
   template() {
     const { dummy } = this.state;
 
-    return ` 
+    return /* html */ ` 
       <ul class="dropdown">
         ${dummy
           .map(
-            (text) => `
+            (text) => /* html */ `
           <li class="title-wrapper">
             <p class="dropdown__title">${text}</p>
             <div class="divider"></div>

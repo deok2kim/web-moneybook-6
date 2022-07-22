@@ -1,0 +1,9 @@
+.badge {
+  @include flex(row, center, center);
+  padding: 4px 8px;
+  background-color: $생활;
+  border-radius: 999px;
+  &__title {
+    color: $white;
+  }
+}
