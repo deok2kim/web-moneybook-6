@@ -1,5 +1,4 @@
 header {
-  z-index: -1;
   position: absolute;
   border-radius: 10px;
   border: 1px solid $line;
@@ -12,6 +11,11 @@ header {
   justify-content: center;
   gap: 210px;
   align-items: center;
+}
+
+.body {
+  position: relative;
+  top: 165px;
 }
 
 #App {

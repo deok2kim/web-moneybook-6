@@ -1,8 +1,5 @@
 .mainPage {
-  margin: 162px 268px 0 268px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex(column, none, center);
 }
 
 .history-container {
