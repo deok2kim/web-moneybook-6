@@ -1,10 +1,17 @@
-const express = require("express");
+const express = require('express');
 const app = express();
 const PORT = 5001;
 
-app.get("/", (req, res) => {
-  res.send("backend init");
-});
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+const moneyBookRouter = require('./router/moneyBook');
+const paymentMethodRouter = require('./router/paymentMethod');
+const categoryRouter = require('./router/category');
+
+app.use('/api/money_book', moneyBookRouter);
+app.use('/api/payment_method', paymentMethodRouter);
+app.use('/api/category', categoryRouter);
 
 app.listen(PORT, () => {
   console.log(`SERVER START: PORT-${PORT}`);
