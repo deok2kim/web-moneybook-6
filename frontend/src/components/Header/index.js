@@ -7,34 +7,61 @@ import 달력 from '@/assets/images/달력.svg';
 import 내역 from '@/assets/images/내역.svg';
 
 import { route } from '@/router';
+import contorller from '@/controller';
 
 export default class Header extends Component {
   template() {
+    const { currentMonth } = this.state;
     return /*html*/ `
       <div class="logo">우아한 가계부</div>
       <div class="month-year">
-        <img src=${arrowLeft} />
+        <img class="arrow-left" src=${arrowLeft} />
         <div class="month-year__wrapper">
-          <span class="month-year__month">7월</span>
+          <span class="month-year__month">${currentMonth}월</span>
           <span class="month-year__year">2022</span>
         </div>
-        <img src=${arrowRight} />
+        <img class="arrow-right" src=${arrowRight} />
       </div>
       <div class="tab">
-        <a href=""><img src=${내역} data-url="/"/></a>
-        <a href=""><img src=${달력} data-url="/calendar"/></a>
-        <a href=""><img src=${통계} data-url="/statistics"/></a>
+        <a href=""><img src=${내역} class="router-btn" data-url="/"/></a>
+        <a href=""><img src=${달력} class="router-btn" data-url="/calendar"/></a>
+        <a href=""><img src=${통계} class="router-btn" data-url="/statistics"/></a>
       </div>
     `;
   }
+
+  handleMonthClick(isNext) {
+    let { currentMonth } = this.state;
+    if (isNext) {
+      currentMonth = currentMonth === 12 ? 1 : ++currentMonth;
+    } else {
+      currentMonth = currentMonth === 1 ? 12 : --currentMonth;
+    }
+    contorller.setStoreData({ key: 'currentMonth', nextState: currentMonth });
+  }
+
   setEvent() {
     this.$target.addEventListener('click', (e) => {
+      const { target } = e;
       e.preventDefault();
-      if (e.target.tagName === 'IMG') {
-        const { url } = e.target.dataset;
+      if (target.className === 'router-btn') {
+        const { url } = target.dataset;
+        if (location.pathname === url) return;
         window.history.pushState({}, {}, url);
         route();
+      } else if (target.className === 'arrow-right') {
+        this.handleMonthClick(true);
+      } else if (target.className === 'arrow-left') {
+        this.handleMonthClick(false);
       }
     });
+  }
+
+  dataSubscribe() {
+    const { key, value } = contorller.subscribe({
+      $el: this,
+      key: 'currentMonth',
+    });
+    this.state = { ...this.state, [key]: value };
   }
 }
