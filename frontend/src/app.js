@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import '@/assets/styles/app.scss';
 
 import { route } from '@/router';
+import './store';
 
 class App extends Component {
   template() {
@@ -12,7 +13,8 @@ class App extends Component {
     `;
   }
 
-  init() {
+  render() {
+    super.render();
     new Header(document.querySelector('header'));
     route();
     window.addEventListener('popstate', () => route());
