@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 5001;
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const moneyBookRouter = require('./router/moneyBook');
