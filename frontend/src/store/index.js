@@ -1,12 +1,25 @@
-import { observable } from '@/observer';
+import contorller from '@/controller';
 
-export const store = {
-  state: observable({}),
-
-  setState(newState) {
-    for (const [key, value] of Object.entries(newState)) {
-      if (!this.state[key]) continue;
-      this.state[key] = value;
-    }
+export const currentMonth = {
+  key: 'currentMonth',
+  state: 3,
+  set: function (nextState) {
+    this.state = nextState;
+  },
+  get: function () {
+    return this.state;
   },
 };
+export const currentYear = {
+  key: 'currentYear',
+  state: 2022,
+  set: function (nextState) {
+    this.state = nextState;
+  },
+  get: function () {
+    return this.state;
+  },
+};
+
+contorller.setStore(currentMonth);
+contorller.setStore(currentYear);
