@@ -1,6 +1,6 @@
 import Component from '@/utils/Component';
-import HistoryInfo from '@/components/HistoryInfo';
-import History from '@/components/History';
+import AccountHistoryInfo from '@/components/AccountHistoryInfo';
+import AccountHistory from '@/components/AccountHistory';
 import Input from '@/components/Input';
 import './index.scss';
 export default class MainPage extends Component {
@@ -17,7 +17,7 @@ export default class MainPage extends Component {
   render() {
     super.render();
     new Input(document.querySelector('.input-bar-container'));
-    new HistoryInfo(document.querySelector('.history-info-container'));
-    new History(document.querySelector('.history-container'));
+    new AccountHistoryInfo(document.querySelector('.history-info-container'));
+    new AccountHistory(document.querySelector('.history-container'));
   }
 }
