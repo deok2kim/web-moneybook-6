@@ -1,28 +1,44 @@
 const paymentMethodService = require('../service/paymentMethodService');
+const infoStore = require('../config/infoStore').infoStore;
 
 exports.addPaymentMethodData = async (req, res) => {
   try {
     await paymentMethodService.addPaymentMethodData(req.body);
-    res.json({ status: 'ok', message: '정상적으로 값을 넣었습니다!' });
+    res.json({
+      status: infoStore.status.success,
+      message: infoStore.message.postSuccess,
+    });
   } catch {
-    res.json({ status: 'fail', message: '값이 존재하지 않습니다!' });
+    res.json({
+      status: infoStore.status.failure,
+      message: infoStore.message.postFailure,
+    });
   }
 };
 
 exports.getPaymentMethodData = async (req, res) => {
   try {
-    const [[data]] = await categoryService.getPaymentMethodData();
+    const data = await paymentMethodService.getPaymentMethodData();
     res.json(data);
   } catch {
-    res.json({ status: 'fail', message: '값을 불러오는데 실패했습니다!' });
+    res.json({
+      status: infoStore.status.failure,
+      message: infoStore.message.getFailure,
+    });
   }
 };
 
 exports.deletePaymentMethodData = async (req, res) => {
   try {
     await paymentMethodService.deletePaymentMethodData(req.params);
-    res.json({ status: 'ok', message: '정상적으로 값을 삭제했습니다!' });
+    res.json({
+      status: infoStore.status.success,
+      message: infoStore.message.deleteSuccess,
+    });
   } catch {
-    res.json({ status: 'fail', message: '값을 삭제하는데 실패했습니다!' });
+    res.json({
+      status: infoStore.status.failure,
+      message: infoStore.message.deleteFailure,
+    });
   }
 };
