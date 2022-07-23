@@ -29,6 +29,6 @@ exports.deleteMoneyBookData = async (req, res) => {
     await paymentMethodService.deleteMoneyBookData(req.params);
     res.json({ status: 'ok', message: '정상적으로 값을 삭제했습니다!' });
   } catch {
-    res.json({ status: 'fail', message: '값을 삭제하는데 실패했습니다!' });
+    res.json({ status: 'fail', message: '값을 삭제하는데 실패했습니다! ' });
   }
 };

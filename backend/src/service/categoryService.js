@@ -1,3 +1,5 @@
 const pool = require('../config/db');
 
-exports.getCategoryData = async () => {};
+exports.getCategoryData = async () => {
+  const connection = await pool.getConnection();
+};
