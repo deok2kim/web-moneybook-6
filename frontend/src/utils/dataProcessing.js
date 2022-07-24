@@ -47,17 +47,16 @@ export const dataProcessing = {
         tmpDailyDataObj.date = `${date.getMonth()}월 ${date.getDay()}일`;
         tmpDailyDataObj.dayname = WEEKDAY[date.getDay()];
         tmpDailyDataObj.itemList = [itemList];
-      } else {
-        if (tmpDailyDataObj.date === formattedDate) {
-          tmpDailyDataObj.itemList.push(itemList);
-        } else {
+        return;
+      }
+      if (tmpDailyDataObj.date === formattedDate) tmpDailyDataObj.itemList.push(itemList);
+      else {
           nextData.push(tmpDailyDataObj);
           tmpDailyDataObj = {};
           tmpDailyDataObj.date = `${date.getMonth()}월 ${date.getDay()}일`;
           tmpDailyDataObj.dayname = WEEKDAY[date.getDay()];
           tmpDailyDataObj.itemList = [itemList];
         }
-      }
     });
     nextData.push(tmpDailyDataObj);
     return nextData;
