@@ -1,8 +1,8 @@
 const pool = require('../config/db');
 
 exports.getMoneyBookData = async () => {
+  const connection = await pool.getConnection();
   try {
-    const connection = await pool.getConnection();
     const [data] = await connection.query(
       `SELECT mb.id, mb.date, mb.category_id, ct.name, mb.content, mb.payment_method_id, pm.name, mb.amount FROM money_book mb, payment_method pm, category ct where mb.category_id = ct.category_id AND mb.payment_method_id = pm.payment_method_id`
     );
@@ -15,8 +15,8 @@ exports.getMoneyBookData = async () => {
 };
 
 exports.addMoneyBookData = async (bodyData) => {
+  const connection = await pool.getConnection();
   try {
-    const connection = await pool.getConnection();
     const { date, category_id, content, payment_method_id, amount } = bodyData;
     await connection.query(
       'INSERT INTO money_book(date, category_id, content, payment_method_id, amount) VALUES(?,?,?,?,?)',
@@ -31,8 +31,8 @@ exports.addMoneyBookData = async (bodyData) => {
 };
 
 exports.updateMoneyBookData = async (paramsData, bodyData) => {
+  const connection = await pool.getConnection();
   try {
-    const connection = await pool.getConnection();
     const { id } = paramsData;
     const { date, category_id, content, payment_method_id, amount } = bodyData;
 
@@ -48,8 +48,8 @@ exports.updateMoneyBookData = async (paramsData, bodyData) => {
 };
 
 exports.deleteMoneyBookData = async (paramsData) => {
+  const connection = await pool.getConnection();
   try {
-    const connection = await pool.getConnection();
     const { id } = paramsData;
     await connection.query('DELETE FROM money_book WHERE id = ?', [id]);
     return;
