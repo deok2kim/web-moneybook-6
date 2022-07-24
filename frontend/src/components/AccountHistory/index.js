@@ -52,7 +52,6 @@ export class HistoryHeader extends Component {
 class HistoryDaily extends Component {
   render() {
     super.render();
-    console.log(this.state);
     this.$target.innerHTML = '';
     new HistoryHeader(this.$target, {
       date: this.state.date,
