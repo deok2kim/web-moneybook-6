@@ -13,7 +13,6 @@ export default class Component {
   }
 
   render() {
-    this.dataSubscribe();
     this.$target.innerHTML = this.template();
   }
 
@@ -23,6 +22,7 @@ export default class Component {
 
   setup() {
     this.init();
+    this.dataSubscribe();
     this.render();
     this.setEvent();
   }

@@ -9,7 +9,7 @@ const WEEKDAY = [
 ];
 
 export const dataProcessing = {
-  // 전체 건수 구하기
+  // 전체 건수 및 구하기
   getTotal: function (data = []) {
     const [totalIncome, totalExpenditure] = data.reduce(
       (prev, cur) => {
@@ -31,8 +31,15 @@ export const dataProcessing = {
     const nextData = [];
     let tmpDailyDataObj = {};
     data.map((d) => {
-      const { date, category, content, paymentMethod, amount, isIncome, id } =
-        d;
+      const {
+        date,
+        category,
+        content,
+        payment_method: paymentMethod,
+        amount,
+        isIncome,
+        id,
+      } = d;
       const itemList = {
         id,
         category,
@@ -41,22 +48,24 @@ export const dataProcessing = {
         amount,
         isIncome,
       };
-      const formattedDate = `${date.getMonth()}월 ${date.getDay()}일`;
+      const FDate = new Date(date);
+      const formattedDate = `${FDate.getMonth() + 1}월 ${FDate.getDate()}일`;
       const isEmpty = Object.keys(tmpDailyDataObj).length === 0;
       if (isEmpty) {
-        tmpDailyDataObj.date = `${date.getMonth()}월 ${date.getDay()}일`;
-        tmpDailyDataObj.dayname = WEEKDAY[date.getDay()];
+        tmpDailyDataObj.date = formattedDate;
+        tmpDailyDataObj.dayname = WEEKDAY[FDate.getDay()];
         tmpDailyDataObj.itemList = [itemList];
         return;
       }
-      if (tmpDailyDataObj.date === formattedDate) tmpDailyDataObj.itemList.push(itemList);
+      if (tmpDailyDataObj.date === formattedDate)
+        tmpDailyDataObj.itemList.push(itemList);
       else {
-          nextData.push(tmpDailyDataObj);
-          tmpDailyDataObj = {};
-          tmpDailyDataObj.date = `${date.getMonth()}월 ${date.getDay()}일`;
-          tmpDailyDataObj.dayname = WEEKDAY[date.getDay()];
-          tmpDailyDataObj.itemList = [itemList];
-        }
+        nextData.push(tmpDailyDataObj);
+        tmpDailyDataObj = {};
+        tmpDailyDataObj.date = formattedDate;
+        tmpDailyDataObj.dayname = WEEKDAY[FDate.getDay()];
+        tmpDailyDataObj.itemList = [itemList];
+      }
     });
     nextData.push(tmpDailyDataObj);
     return nextData;

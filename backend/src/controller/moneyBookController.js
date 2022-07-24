@@ -3,7 +3,8 @@ const infoStore = require('../config/infoStore').infoStore;
 
 exports.getMoneyBookData = async (req, res) => {
   try {
-    data = await moneyBookService.getMoneyBookData();
+    const { date } = req.params;
+    data = await moneyBookService.getMoneyBookData(date);
     res.json(data);
   } catch {
     res.json({
