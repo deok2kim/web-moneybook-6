@@ -2,10 +2,12 @@ import Component from '@/utils/Component';
 
 import './index.scss';
 import Badge from '@/components/Badge';
+import contorller from '@/controller';
+import { dataProcessing } from '@/utils/dataProcessing';
 
 export class HistoryItem extends Component {
   template() {
-    const { badge, content, paymentMethod, amount } = this.state;
+    const { category, content, paymentMethod, amount } = this.state;
     return /* html */ `
         <div class="history-item__content-wrapper">
           <span class="history-item__category"></span>
@@ -20,7 +22,7 @@ export class HistoryItem extends Component {
   render() {
     super.render();
     new Badge(this.$target.querySelector('.history-item__category'), {
-      title: this.state.badge,
+      title: this.state.category,
     });
   }
 }
@@ -56,7 +58,7 @@ class HistoryDaily extends Component {
       date: this.state.date,
       dayname: this.state.dayname,
     });
-    this.state.historyItemList.forEach((historyItem) => {
+    this.state.itemList.forEach((historyItem) => {
       const $nextTarget = document.createElement('section');
       $nextTarget.classList.add('history-item');
       this.$target.appendChild($nextTarget);
@@ -65,7 +67,7 @@ class HistoryDaily extends Component {
   }
 }
 
-export default class History extends Component {
+export default class AccountHistory extends Component {
   template() {
     return `
       <section class="history"></section>
@@ -76,44 +78,21 @@ export default class History extends Component {
     super.render();
     const $history = document.querySelector('.history');
     $history.innerHTML = '';
-
-    const historyList = [
-      {
-        date: '7월 15일',
-        dayname: '목',
-        historyItemList: [
-          {
-            badge: '문화/여가',
-            content: '스트리밍서비스 정기 결제',
-            paymentMethod: '현대카드',
-            amount: '-10,900',
-          },
-          {
-            badge: '월급',
-            content: '7월 급여',
-            paymentMethod: '현금',
-            amount: '4,500,000',
-          },
-        ],
-      },
-      {
-        date: '7월 16일',
-        dayname: '금',
-        historyItemList: [
-          {
-            badge: '7월 월세',
-            content: '생활',
-            paymentMethod: '현대카드',
-            amount: '-510,900',
-          },
-        ],
-      },
-    ];
+    const historyList = dataProcessing.getDaily(
+      this.state.accountHistoryDataOfCurrentMonth,
+    );
     historyList.forEach((history) => {
       const $nextTarget = document.createElement('section');
       $nextTarget.classList.add('history-daily');
       $history.appendChild($nextTarget);
       new HistoryDaily($nextTarget, history);
     });
+  }
+  dataSubscribe() {
+    const { key, value } = contorller.subscribe({
+      $el: this,
+      key: 'accountHistoryDataOfCurrentMonth',
+    });
+    this.state = { ...this.state, [key]: value };
   }
 }
