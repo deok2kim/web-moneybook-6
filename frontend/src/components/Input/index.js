@@ -5,6 +5,8 @@ import saveDisabled from '@/assets/images/saveDisabled.svg';
 import chevronDown from '@/assets/images/chevronDown.svg';
 import Dropdown from '../Dorpdown';
 
+import contorller from '@/controller';
+
 export default class Input extends Component {
   template() {
     return /*html*/ `
@@ -56,21 +58,30 @@ export default class Input extends Component {
   }
 
   setEvent() {
-    const $input = document.querySelector('.input');
+    const $input = this.$target.querySelector('.input');
     $input.addEventListener('click', (e) => {
-      if (e.target.closest('#category')) {
-        const dummy = ['식비', '생활', '교통', '쇼핑/뷰티', '의료/건강'];
-        new Dropdown(document.querySelector('#dropdownCategory'), {
+      const { target } = e;
+      if (target.closest('#category')) {
+        new Dropdown(this.$target.querySelector('#dropdownCategory'), {
           isPaymentMethod: false,
-          dummy,
+          category: this.state.category,
+          selectedIncome: '지출',
         });
-      } else if (e.target.closest('#paymentMethod')) {
+      } else if (target.closest('#paymentMethod')) {
         const dummy = ['현금', '신용카드', '계좌이체'];
-        new Dropdown(document.querySelector('#dropdownPaymentMethod'), {
+        new Dropdown(this.$target.querySelector('#dropdownPaymentMethod'), {
           isPaymentMethod: true,
           dummy,
         });
       }
     });
+  }
+
+  async dataSubscribe() {
+    const { key, value } = contorller.subscribe({
+      $el: this,
+      key: 'category',
+    });
+    this.state = { ...this.state, [key]: await value };
   }
 }
