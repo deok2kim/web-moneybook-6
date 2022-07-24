@@ -1,10 +1,13 @@
 import contorller from '@/controller';
 import { getCategory } from '@/api/category';
+import { getAccountHistory } from '@/api/accountHistory';
+
+const test_month = 202207;
 
 export const store = {
   currentMonth: {
     key: 'currentMonth',
-    state: 3,
+    state: 202207,
     set: function (nextState) {
       this.state = nextState;
     },
@@ -15,35 +18,7 @@ export const store = {
 
   accountHistoryDataOfCurrentMonth: {
     key: 'accountHistoryDataOfCurrentMonth',
-    state: [
-      {
-        id: 1,
-        date: new Date(2022, 7, 20),
-        category: '생활/여가',
-        content: '테니스 레슨비',
-        paymentMethod: '신용카드',
-        isIncome: '지출',
-        amount: 280000,
-      },
-      {
-        id: 2,
-        date: new Date(2022, 7, 20),
-        category: '교통',
-        content: '택시비',
-        paymentMethod: '신용카드',
-        isIncome: '지출',
-        amount: 9000,
-      },
-      {
-        id: 2,
-        date: new Date(2022, 7, 21),
-        category: '월급',
-        content: '7월 급여',
-        paymentMethod: '현금',
-        isIncome: '수입',
-        amount: 3800000,
-      },
-    ],
+    state: getAccountHistory(test_month),
     set: function (nextState) {
       this.state = nextState;
     },

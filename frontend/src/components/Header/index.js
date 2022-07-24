@@ -17,8 +17,8 @@ export default class Header extends Component {
       <div class="month-year">
         <img class="arrow-left" src=${arrowLeft} />
         <div class="month-year__wrapper">
-          <span class="month-year__month">${currentMonth}월</span>
-          <span class="month-year__year">2022</span>
+          <span class="month-year__month">${currentMonth % 100}월</span>
+          <span class="month-year__year">${parseInt(currentMonth / 100)}</span>
         </div>
         <img class="arrow-right" src=${arrowRight} />
       </div>

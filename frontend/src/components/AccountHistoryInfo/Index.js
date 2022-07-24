@@ -8,6 +8,10 @@ import { dataProcessing } from '@/utils/dataProcessing';
 
 export default class AccountHistoryInfo extends Component {
   template() {
+    if (!this.state.accountHistoryTotalInfo) {
+      return 'loading';
+    }
+
     const { totalIncome, totalExpenditure, totalCount } =
       this.state.accountHistoryTotalInfo;
     return /*html*/ `
@@ -29,13 +33,12 @@ export default class AccountHistoryInfo extends Component {
     `;
   }
 
-  dataSubscribe() {
+  async dataSubscribe() {
     const { key, value } = contorller.subscribe({
       $el: this,
       key: 'accountHistoryDataOfCurrentMonth',
     });
-    const accountHistoryTotalInfo = dataProcessing.getTotal(value);
-
-    this.state = { ...this.state, accountHistoryTotalInfo, test: value };
+    const accountHistoryTotalInfo = dataProcessing.getTotal(await value);
+    this.setState({ ...this.state, accountHistoryTotalInfo });
   }
 }
