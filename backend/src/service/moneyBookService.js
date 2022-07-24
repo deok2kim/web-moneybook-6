@@ -1,13 +1,15 @@
 const pool = require('../config/db');
 
-exports.getMoneyBookData = async () => {
+exports.getMoneyBookData = async (date) => {
   const connection = await pool.getConnection();
   try {
     const [data] = await connection.query(
-      `SELECT mb.id, mb.date, mb.category_id, ct.name, mb.content, mb.payment_method_id, pm.name, mb.amount FROM money_book mb, payment_method pm, category ct where mb.category_id = ct.category_id AND mb.payment_method_id = pm.payment_method_id`
+      `SELECT mb.id, mb.date, mb.category_id, ct.name as category, mb.content, mb.payment_method_id, pm.name as payment_method, ct.isIncome, mb.amount FROM money_book mb, payment_method pm, category ct where mb.category_id = ct.id AND mb.payment_method_id = pm.id AND DATE_FORMAT(date, '%Y%m') = DATE_FORMAT(now(), ?) order by date desc`,
+      [date],
     );
     return data;
   } catch (err) {
+    console.error(err);
     throw err;
   } finally {
     connection?.release();
