@@ -1,4 +1,5 @@
 import contorller from '@/controller';
+import { getCategory } from '@/api/category';
 
 export const store = {
   currentMonth: {
@@ -48,6 +49,17 @@ export const store = {
     },
     get: function () {
       return this.state;
+    },
+  },
+
+  category: {
+    key: 'category',
+    state: getCategory(),
+    get: function () {
+      return this.state;
+    },
+    set: function (nextState) {
+      this.state = nextState;
     },
   },
 };

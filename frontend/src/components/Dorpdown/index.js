@@ -3,15 +3,16 @@ import './index.scss';
 
 export default class Dropdown extends Component {
   template() {
-    const { dummy } = this.state;
+    const { category, selectedIncome } = this.state;
 
     return /* html */ ` 
       <ul class="dropdown">
-        ${dummy
+        ${category
+          .filter(({ isIncome }) => selectedIncome === isIncome)
           .map(
-            (text) => /* html */ `
-          <li class="title-wrapper">
-            <p class="dropdown__title">${text}</p>
+            ({ id, name }) => /* html */ `
+          <li class="title-wrapper" data-id=${id}>
+            <p class="dropdown__title">${name}</p>
             <div class="divider"></div>
           </li>
         `,
