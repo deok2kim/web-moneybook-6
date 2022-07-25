@@ -1,6 +1,7 @@
 import controller from '@/controller';
 import { getCategory } from '@/api/category';
 import { getAccountHistory } from '@/api/accountHistory';
+import { getPaymentMethod } from '@/api/paymentMethod';
 
 class Store {
   constructor(key, state, willSubscribeStore = null, fetchFn = null) {
@@ -11,14 +12,15 @@ class Store {
     this.fetchFn = fetchFn;
     this.init();
   }
-
   get() {
     return this.state;
   }
+
   set(nextState) {
     this.state = nextState;
     return this.subscribers;
   }
+
   fetch(params) {
     if (!this.fetchFn) return;
     const val = this.fetchFn(params);
@@ -52,3 +54,9 @@ export const accountHistory = new Store(
   getAccountHistory,
 );
 export const category = new Store('category', [], null, getCategory);
+export const paymentMethod = new Store(
+  'paymentMethod',
+  [],
+  null,
+  getPaymentMethod,
+);
