@@ -7,7 +7,7 @@ import Dropdown from '../Dorpdown';
 
 import controller from '@/controller';
 
-export default class Input extends Component {
+export default class AccountHistoryInput extends Component {
   template() {
     return /*html*/ `
       <section class="input">

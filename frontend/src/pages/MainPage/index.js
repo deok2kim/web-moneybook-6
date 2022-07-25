@@ -1,7 +1,7 @@
 import Component from '@/utils/Component';
 import AccountHistoryInfo from '@/components/AccountHistoryInfo';
 import AccountHistory from '@/components/AccountHistory';
-import Input from '@/components/Input';
+import AccountHistoryInput from '@/components/AccountHistoryInput';
 import controller from '@/controller';
 import './index.scss';
 import { dataProcessing } from '@/utils/dataProcessing';
@@ -19,7 +19,7 @@ export default class MainPage extends Component {
   render() {
     super.render();
     if (!this.state.accountHistoryTotalInfo) return;
-    new Input(document.querySelector('.input-bar-container'));
+    new AccountHistoryInput(document.querySelector('.input-bar-container'));
     new AccountHistoryInfo(
       document.querySelector('.history-info-container'),
       this.state,
