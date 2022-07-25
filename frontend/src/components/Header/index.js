@@ -7,7 +7,7 @@ import 달력 from '@/assets/images/달력.svg';
 import 내역 from '@/assets/images/내역.svg';
 
 import { route } from '@/router';
-import contorller from '@/controller';
+import controller from '@/controller';
 
 export default class Header extends Component {
   template() {
@@ -37,7 +37,7 @@ export default class Header extends Component {
     } else {
       currentMonth = currentMonth === 1 ? 12 : --currentMonth;
     }
-    contorller.setStoreData({ key: 'currentMonth', nextState: currentMonth });
+    controller.setStoreData({ key: 'currentMonth', nextState: currentMonth });
   }
 
   setEvent() {
@@ -58,10 +58,10 @@ export default class Header extends Component {
   }
 
   dataSubscribe() {
-    const { key, value } = contorller.subscribe({
+    const { key, value } = controller.subscribe({
       $el: this,
       key: 'currentMonth',
     });
-    this.state = { ...this.state, [key]: value };
+    this.setState({ ...this.state, [key]: value });
   }
 }

@@ -2,7 +2,7 @@ import Component from '@/utils/Component';
 
 import './index.scss';
 import Badge from '@/components/Badge';
-import contorller from '@/controller';
+import controller from '@/controller';
 import { dataProcessing } from '@/utils/dataProcessing';
 
 export class HistoryItem extends Component {
@@ -79,21 +79,12 @@ export default class AccountHistory extends Component {
     const $history = document.querySelector('.history');
     $history.innerHTML = '';
     if (!Object.keys(this.state).length) return;
-    const historyList = dataProcessing.getDaily(
-      this.state.accountHistoryDataOfCurrentMonth,
-    );
-    historyList.forEach((history) => {
+
+    this.state.accountHistoryDataOfCurrentMonth.forEach((history) => {
       const $nextTarget = document.createElement('section');
       $nextTarget.classList.add('history-daily');
       $history.appendChild($nextTarget);
       new HistoryDaily($nextTarget, history);
     });
-  }
-  async dataSubscribe() {
-    const { key, value } = contorller.subscribe({
-      $el: this,
-      key: 'accountHistoryDataOfCurrentMonth',
-    });
-    this.setState({ ...this.state, [key]: await value });
   }
 }

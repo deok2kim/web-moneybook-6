@@ -10,7 +10,7 @@ class Controller {
 
   subscribe({ $el, key }) {
     const isSubscribe = this.subscribers.findIndex(
-      (subscriber) => subscriber.$el === $el,
+      (subscriber) => subscriber.key === key,
     );
     if (isSubscribe === -1) {
       this.subscribers.push({
@@ -27,10 +27,12 @@ class Controller {
     );
   }
 
-  notify(key) {
-    this.subscribers.forEach(
-      (subscriber) => subscriber.key === key && subscriber.$el.render(),
-    );
+  notify(key, nextState) {
+    this.subscribers.forEach((subscriber) => {
+      if (subscriber.key === key) {
+        subscriber.$el.dataSubscribe();
+      }
+    });
   }
 
   setStore(atom) {
@@ -43,8 +45,12 @@ class Controller {
   }
 
   setStoreData({ key, nextState }) {
-    this.store[key].set(nextState);
-    this.notify(key);
+    const subscribers = this.store[key].set(nextState);
+    subscribers.map((subscriber) => {
+      subscriber.fetch(nextState);
+      this.notify(subscriber.key, nextState);
+    });
+    this.notify(key, nextState);
   }
 
   getStoreData(key) {
@@ -55,5 +61,5 @@ class Controller {
   }
 }
 
-const contorller = new Controller();
-export default contorller;
+const controller = new Controller();
+export default controller;

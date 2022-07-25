@@ -5,7 +5,7 @@ import saveDisabled from '@/assets/images/saveDisabled.svg';
 import chevronDown from '@/assets/images/chevronDown.svg';
 import Dropdown from '../Dorpdown';
 
-import contorller from '@/controller';
+import controller from '@/controller';
 
 export default class Input extends Component {
   template() {
@@ -58,8 +58,7 @@ export default class Input extends Component {
   }
 
   setEvent() {
-    const $input = this.$target.querySelector('.input');
-    $input.addEventListener('click', (e) => {
+    this.$target.addEventListener('click', (e) => {
       const { target } = e;
       if (target.closest('#category')) {
         new Dropdown(this.$target.querySelector('#dropdownCategory'), {
@@ -78,10 +77,10 @@ export default class Input extends Component {
   }
 
   async dataSubscribe() {
-    const { key, value } = contorller.subscribe({
+    const { key, value } = controller.subscribe({
       $el: this,
       key: 'category',
     });
-    this.state = { ...this.state, [key]: await value };
+    this.setState({ ...this.state, [key]: await value });
   }
 }

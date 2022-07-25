@@ -3,7 +3,7 @@ import './index.scss';
 import saveActiveSmall from '@/assets/images/saveActiveSmall.svg';
 import saveDefaultSmall from '@/assets/images/saveDefaultSmall.svg';
 
-import contorller from '@/controller';
+import controller from '@/controller';
 import { dataProcessing } from '@/utils/dataProcessing';
 
 export default class AccountHistoryInfo extends Component {
@@ -31,14 +31,5 @@ export default class AccountHistoryInfo extends Component {
         </div>
       </section>
     `;
-  }
-
-  async dataSubscribe() {
-    const { key, value } = contorller.subscribe({
-      $el: this,
-      key: 'accountHistoryDataOfCurrentMonth',
-    });
-    const accountHistoryTotalInfo = dataProcessing.getTotal(await value);
-    this.setState({ ...this.state, accountHistoryTotalInfo });
   }
 }
