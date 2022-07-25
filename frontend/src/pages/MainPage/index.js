@@ -19,14 +19,26 @@ export default class MainPage extends Component {
   render() {
     super.render();
     if (!this.state.accountHistoryTotalInfo) return;
-    new AccountHistoryInput(document.querySelector('.input-bar-container'));
+    new AccountHistoryInput(
+      this.$target.querySelector('.input-bar-container'),
+      {
+        ...this.state,
+        inputCategory: '',
+        inputDate: '',
+        inputContent: '',
+        inputAmount: 0,
+        isPaymentMethodOpen: false,
+        isIncomeSelected: '지출',
+      },
+    );
+
     new AccountHistoryInfo(
-      document.querySelector('.history-info-container'),
+      this.$target.querySelector('.history-info-container'),
       this.state,
     );
 
     new AccountHistory(
-      document.querySelector('.history-container'),
+      this.$target.querySelector('.history-container'),
       this.state,
     );
   }
@@ -36,14 +48,27 @@ export default class MainPage extends Component {
       $el: this,
       key: 'accountHistory',
     });
+    const categoryState = controller.subscribe({
+      $el: this,
+      key: 'category',
+    });
+    const paymentMethodState = controller.subscribe({
+      $el: this,
+      key: 'paymentMethod',
+    });
     const accountHistory = await value;
     const accountHistoryTotalInfo = dataProcessing.getTotal(accountHistory);
+    const category = await categoryState.value;
+    const paymentMethod = await paymentMethodState.value;
     const accountHistoryDataOfCurrentMonth =
       dataProcessing.getDaily(accountHistory);
+
     this.setState({
       ...this.state,
       accountHistoryTotalInfo,
       accountHistoryDataOfCurrentMonth,
+      category,
+      paymentMethod,
     });
   }
 }

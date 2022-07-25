@@ -3,12 +3,18 @@ import './index.scss';
 
 export default class Dropdown extends Component {
   template() {
-    const { category, selectedIncome } = this.state;
-
+    const { theme, dropdownItemList, isIncomeSelected } = this.state;
+    let item = [];
+    if (theme === 'category') {
+      item = dropdownItemList.filter(
+        ({ isIncome }) => isIncomeSelected === isIncome,
+      );
+    } else if (theme === 'paymentMethod') {
+      item = dropdownItemList;
+    }
     return /* html */ ` 
       <ul class="dropdown">
-        ${category
-          .filter(({ isIncome }) => selectedIncome === isIncome)
+        ${item
           .map(
             ({ id, name }) => /* html */ `
           <li class="title-wrapper" data-id=${id}>
