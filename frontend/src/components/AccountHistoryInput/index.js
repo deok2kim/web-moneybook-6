@@ -3,7 +3,7 @@ import './index.scss';
 import minus from '@/assets/images/minus.svg';
 import saveDisabled from '@/assets/images/saveDisabled.svg';
 import chevronDown from '@/assets/images/chevronDown.svg';
-import Dropdown from '../Dorpdown';
+import Dropdown from '@/components/Dropdown';
 
 export default class AccountHistoryInput extends Component {
   isInputText(input, text) {
