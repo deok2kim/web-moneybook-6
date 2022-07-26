@@ -5,6 +5,7 @@ import AccountHistoryInput from '@/components/AccountHistoryInput';
 import controller from '@/controller';
 import './index.scss';
 import { dataProcessing } from '@/utils/dataProcessing';
+import { createAccountHistory } from '@/api/accountHistory';
 export default class MainPage extends Component {
   template() {
     return /*html*/ `
@@ -31,6 +32,7 @@ export default class MainPage extends Component {
         isPaymentMethodOpen: false,
         inputIsIncome: '지출',
         isInputDataFilled: false,
+        handleCreateAccountHistory: this.handleCreateAccountHistory,
       },
     );
 
@@ -44,6 +46,13 @@ export default class MainPage extends Component {
       this.state,
     );
   }
+
+  handleCreateAccountHistory = async (data) => {
+    const res = await createAccountHistory(data);
+    if (res === 'ok') {
+      this.dataSubscribe();
+    }
+  };
 
   async dataSubscribe() {
     const { key, value } = controller.subscribe({

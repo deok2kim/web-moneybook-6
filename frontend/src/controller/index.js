@@ -57,6 +57,7 @@ class Controller {
     const [storeKey, storeValue] = Object.entries(this.getStore()).find(
       ([storeKey, value]) => storeKey === key,
     );
+    storeValue.fetch();
     return { key: storeKey, value: storeValue.state };
   }
 }

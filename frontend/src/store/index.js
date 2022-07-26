@@ -13,7 +13,8 @@ class Store {
     this.init();
   }
   get() {
-    return this.state;
+    const { state } = this;
+    return state;
   }
 
   set(nextState) {
@@ -21,9 +22,14 @@ class Store {
     return this.subscribers;
   }
 
-  fetch(params) {
+  fetch() {
     if (!this.fetchFn) return;
-    const val = this.fetchFn(params);
+    let val;
+    if (this.willSubscribeStore) {
+      val = this.fetchFn(this.willSubscribeStore.state);
+    } else {
+      val = this.fetchFn();
+    }
     this.set(val);
   }
 
@@ -32,9 +38,7 @@ class Store {
   }
 
   init() {
-    this.willSubscribeStore
-      ? this.fetch(this.willSubscribeStore.state)
-      : this.fetch();
+    this.fetch();
     this.enroll();
     this.subscribe();
   }
