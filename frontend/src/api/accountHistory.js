@@ -10,3 +10,15 @@ export const getAccountHistory = async (month) => {
   const json = await res.json();
   return json;
 };
+
+export const createAccountHistory = async (params) => {
+  const res = await fetch(`${BASE_URL}/money_book`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params),
+  });
+  const json = await res.json();
+  return json;
+};
