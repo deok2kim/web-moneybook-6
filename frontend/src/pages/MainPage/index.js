@@ -24,12 +24,13 @@ export default class MainPage extends Component {
       this.$target.querySelector('.input-bar-container'),
       {
         ...this.state,
-        inputCategory: '',
-        inputDate: '',
-        inputContent: '',
-        inputAmount: '',
-        inputPaymentMethod: '',
-        isPaymentMethodOpen: false,
+        inputs: {
+          category: '',
+          date: '',
+          content: '',
+          amount: '',
+          paymentMethod: '',
+        },
         inputIsIncome: '지출',
         isInputDataFilled: false,
         handleCreateAccountHistory: this.handleCreateAccountHistory,
@@ -49,7 +50,7 @@ export default class MainPage extends Component {
 
   handleCreateAccountHistory = async (data) => {
     const res = await createAccountHistory(data);
-    if (res === 'ok') {
+    if (res.status === 'ok') {
       this.dataSubscribe();
     }
   };
@@ -69,8 +70,8 @@ export default class MainPage extends Component {
     });
     const accountHistory = await value;
     const accountHistoryTotalInfo = dataProcessing.getTotal(accountHistory);
-    const category = await categoryState.value;
-    const paymentMethod = await paymentMethodState.value;
+    const categories = await categoryState.value;
+    const paymentMethods = await paymentMethodState.value;
     const accountHistoryDataOfCurrentMonth =
       dataProcessing.getDaily(accountHistory);
 
@@ -78,8 +79,8 @@ export default class MainPage extends Component {
       ...this.state,
       accountHistoryTotalInfo,
       accountHistoryDataOfCurrentMonth,
-      category,
-      paymentMethod,
+      categories,
+      paymentMethods,
     });
   }
 }
