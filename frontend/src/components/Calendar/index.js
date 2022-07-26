@@ -4,6 +4,7 @@ import './index.scss';
 
 export default class Calendar extends Component {
   template() {
+    if (!this.state.currentMonth || !this.state.accountHistoryPerDay) return;
     let dates = this.createDates();
 
     dates.forEach((date, i) => {
@@ -19,8 +20,8 @@ export default class Calendar extends Component {
     const date = new Date();
     const viewYear = date.getFullYear();
     const calenderDates = 42;
-    const prevLast = new Date(viewYear, this.state.month - 1, 0);
-    const thisLast = new Date(viewYear, this.state.month, 0);
+    const prevLast = new Date(viewYear, this.state.currentMonth - 1, 0);
+    const thisLast = new Date(viewYear, this.state.currentMonth, 0);
 
     const PLDay = prevLast.getDay();
     const TLDate = thisLast.getDate();
@@ -30,7 +31,7 @@ export default class Calendar extends Component {
 
     if (PLDay !== 6) {
       for (let i = 0; i < PLDay + 1; i++) {
-        prevDates.unshift(' ');
+        prevDates.unshift('');
       }
     }
 
@@ -45,10 +46,8 @@ export default class Calendar extends Component {
 
   render() {
     super.render();
-    for (let dateElement of document.querySelectorAll(
-      '.calendar__container--date-Box',
-    )) {
-      new DateBox(dateElement);
-    }
+    this.$target
+      .querySelectorAll('.calendar__container--date-Box')
+      .forEach((dateBox) => new DateBox(dateBox, this.state));
   }
 }

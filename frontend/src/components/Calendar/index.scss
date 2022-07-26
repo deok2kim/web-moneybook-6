@@ -14,10 +14,7 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   &__container--date-Box {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
+    @include flex(column, flex-end, flex-end);
     padding: 8px;
     gap: 16px;
 

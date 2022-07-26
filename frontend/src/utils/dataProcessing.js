@@ -70,4 +70,43 @@ export const dataProcessing = {
     nextData.push(tmpDailyDataObj);
     return nextData;
   },
+  getTotalIncome: function (data = []) {
+    let totalIncome = 0;
+    data.map((d) => {
+      if (d.isIncome === '수입') totalIncome += d.amount;
+    });
+    return totalIncome;
+  },
+  getTotalExpenditure: function (data = []) {
+    let totalExpenditure = 0;
+    data.map((d) => {
+      if (d.isIncome === '지출') totalExpenditure += d.amount;
+    });
+    return totalExpenditure;
+  },
+  getTotalPerDay: function (data = []) {
+    let totalPerDay = new Map();
+    data.map((d) => {
+      let currentDay = Number(d.date.split(' ')[0].split('-')[2]);
+      let currentDayIncome = d.isIncome === '수입' ? d.amount : 0;
+      let currentDayExpendure = d.isIncome === '지출' ? d.amount : 0;
+
+      if (totalPerDay.has(currentDay)) {
+        const prevData = totalPerDay.get(currentDay);
+
+        prevData.income += currentDayIncome;
+        prevData.expenditure += currentDayExpendure;
+        prevData.sum += currentDayIncome - currentDayExpendure;
+
+        totalPerDay.set(currentDay, prevData);
+      } else {
+        totalPerDay.set(currentDay, {
+          income: currentDayIncome,
+          expenditure: currentDayExpendure,
+          sum: currentDayIncome - currentDayExpendure,
+        });
+      }
+    });
+    return totalPerDay;
+  },
 };
