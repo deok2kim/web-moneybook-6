@@ -36,11 +36,10 @@ export default class MainPage extends Component {
       },
     );
 
-    new AccountHistory(this.$target.querySelector('.history-container'), {
-      ...this.state,
-      isSelectedIncomeFilter: true,
-      isSelectedExpenditureFilter: true,
-    });
+    new AccountHistory(
+      this.$target.querySelector('.history-container'),
+      this.state,
+    );
   }
 
   handleCreateAccountHistory = async (data) => {

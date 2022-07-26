@@ -64,3 +64,8 @@ export const paymentMethod = new Store(
   null,
   getPaymentMethod,
 );
+
+export const historyFilter = new Store('historyFilter', {
+  income: true,
+  expenditure: true,
+});
