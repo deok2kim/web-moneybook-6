@@ -1,5 +1,4 @@
 import Component from '@/utils/Component';
-import AccountHistoryInfo from '@/components/AccountHistoryInfo';
 import AccountHistory from '@/components/AccountHistory';
 import AccountHistoryInput from '@/components/AccountHistoryInput';
 import controller from '@/controller';
@@ -35,11 +34,6 @@ export default class MainPage extends Component {
         isInputDataFilled: false,
         handleCreateAccountHistory: this.handleCreateAccountHistory,
       },
-    );
-
-    new AccountHistoryInfo(
-      this.$target.querySelector('.history-info-container'),
-      this.state,
     );
 
     new AccountHistory(

@@ -3,6 +3,9 @@ import Component from '@/utils/Component';
 import './index.scss';
 import Badge from '@/components/Badge';
 import { dataProcessing } from '@/utils/dataProcessing';
+import controller from '@/controller';
+
+import AccountHistoryInfo from '@/components/AccountHistoryInfo';
 
 export class HistoryItem extends Component {
   template() {
@@ -80,24 +83,62 @@ class HistoryDaily extends Component {
 export default class AccountHistory extends Component {
   template() {
     return `
-      <section class="history"></section>
+    <section class="history-info-container"></section>
+    <section class="history"></section>
     `;
   }
 
   mountHistoryDaily() {
     const $history = document.querySelector('.history');
     $history.innerHTML = '';
-    this.state.accountHistoryDataOfCurrentMonth.forEach((history) => {
-      const $nextTarget = document.createElement('section');
-      $nextTarget.classList.add('history-daily');
-      $history.appendChild($nextTarget);
-      new HistoryDaily($nextTarget, history);
-    });
+    this.historyFilter(this.state.accountHistoryDataOfCurrentMonth).forEach(
+      (history) => {
+        const $nextTarget = document.createElement('section');
+        $nextTarget.classList.add('history-daily');
+        $history.appendChild($nextTarget);
+        new HistoryDaily($nextTarget, {
+          ...history,
+          isSelectedExpenditureFilter: this.state.isSelectedExpenditureFilter,
+          isSelectedIncomeFilter: this.state.isSelectedIncomeFilter,
+        });
+      },
+    );
+  }
+
+  historyFilter(accountHistories) {
+    const { income, expenditure } = this.state.historyFilter;
+
+    const res = accountHistories
+      .map((accountHistory) => {
+        const filterRes = accountHistory.itemList.filter((item) => {
+          if (item.isIncome === '수입' && income) return true;
+          if (item.isIncome === '지출' && expenditure) return true;
+          return false;
+        });
+        return { ...accountHistory, itemList: filterRes };
+      })
+      .filter((history) => history.itemList.length > 0);
+    return res;
+  }
+
+  mountHistoryInfo() {
+    new AccountHistoryInfo(
+      this.$target.querySelector('.history-info-container'),
+      this.state,
+    );
   }
 
   render() {
     super.render();
-    if (!Object.keys(this.state).length) return;
     this.mountHistoryDaily();
+    this.mountHistoryInfo();
+  }
+
+  dataSubscribe() {
+    const historyFilter = controller.subscribe({
+      $el: this,
+      key: 'historyFilter',
+    });
+    this.setState({ ...this.state, historyFilter: historyFilter.value });
   }
 }
