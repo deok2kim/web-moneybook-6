@@ -24,12 +24,13 @@ export default class MainPage extends Component {
       this.$target.querySelector('.input-bar-container'),
       {
         ...this.state,
-        inputCategory: '',
-        inputDate: '',
-        inputContent: '',
-        inputAmount: '',
-        inputPaymentMethod: '',
-        isPaymentMethodOpen: false,
+        inputs: {
+          category: '',
+          date: '',
+          content: '',
+          amount: '',
+          paymentMethod: '',
+        },
         inputIsIncome: '지출',
         isInputDataFilled: false,
         handleCreateAccountHistory: this.handleCreateAccountHistory,
@@ -49,37 +50,39 @@ export default class MainPage extends Component {
 
   handleCreateAccountHistory = async (data) => {
     const res = await createAccountHistory(data);
-    if (res === 'ok') {
+    if (res.status === 'ok') {
       this.dataSubscribe();
     }
   };
 
   async dataSubscribe() {
-    const { key, value } = controller.subscribe({
+    const accountHistoryState = controller.subscribe({
       $el: this,
       key: 'accountHistory',
     });
+    const accountHistory = await accountHistoryState.value;
+    const accountHistoryTotalInfo = dataProcessing.getTotal(accountHistory);
+    const accountHistoryDataOfCurrentMonth =
+      dataProcessing.getDaily(accountHistory);
+
     const categoryState = controller.subscribe({
       $el: this,
       key: 'category',
     });
+    const categories = await categoryState.value;
+
     const paymentMethodState = controller.subscribe({
       $el: this,
       key: 'paymentMethod',
     });
-    const accountHistory = await value;
-    const accountHistoryTotalInfo = dataProcessing.getTotal(accountHistory);
-    const category = await categoryState.value;
-    const paymentMethod = await paymentMethodState.value;
-    const accountHistoryDataOfCurrentMonth =
-      dataProcessing.getDaily(accountHistory);
+    const paymentMethods = await paymentMethodState.value;
 
     this.setState({
       ...this.state,
       accountHistoryTotalInfo,
       accountHistoryDataOfCurrentMonth,
-      category,
-      paymentMethod,
+      categories,
+      paymentMethods,
     });
   }
 }

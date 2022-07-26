@@ -6,24 +6,16 @@ import saveDisabled from '@/assets/images/saveDisabled.svg';
 import saveActive from '@/assets/images/saveActive.svg';
 import chevronDown from '@/assets/images/chevronDown.svg';
 import Dropdown from '@/components/Dropdown';
-import { createAccountHistory } from '../../api/accountHistory';
 
 export default class AccountHistoryInput extends Component {
   template() {
-    const {
-      inputCategory,
-      inputDate,
-      inputContent,
-      inputAmount,
-      inputPaymentMethod,
-      inputIsIncome,
-      isInputDataFilled,
-    } = this.state;
+    const { inputIsIncome, isInputDataFilled, inputs } = this.state;
+    const { category, date, content, amount, paymentMethod } = inputs;
     return /*html*/ `
       <section class="input">
         <div class="input-wrapper">
           <p class="input__title">날짜</p>
-          <input class="input__content__input" name="inputDate" type="date" placeholder="입력하세요" value="${inputDate}" />
+          <input class="input__content__input" name="date" type="date" placeholder="입력하세요" value="${date}" />
         </div>
         <div class="divider"></div>
 
@@ -31,7 +23,7 @@ export default class AccountHistoryInput extends Component {
           <p class="input__title">분류</p>
           <button class="input__content__dropdown">
          
-            <input class="input__content__input" name="inputCategory" disabled placeholder="선택하세요" value="${inputCategory}" />
+            <input class="input__content__input" name="category" disabled placeholder="선택하세요" value="${category}" />
             <img src=${chevronDown} />
           </button>
           <div id="dropdownCategory" class="dropdown-state"></div>
@@ -40,14 +32,14 @@ export default class AccountHistoryInput extends Component {
 
         <div class="input-wrapper input-wrapper--long">
           <p class="input__title">내용</p>
-          <input class="input__content__input input__content__input--long" name="inputContent" placeholder="입력하세요" value="${inputContent.trim()}" />
+          <input class="input__content__input input__content__input--long" name="content" placeholder="입력하세요" value="${content.trim()}" />
         </div>
         <div class="divider"></div>
 
         <div class="input-wrapper" id="paymentMethod">
           <p class="input__title">결제수단</p>
           <button class="input__content__dropdown">
-          <input class="input__content__input" name="inputPaymentMethod" placeholder="선택하세요" disabled value="${inputPaymentMethod}" />
+          <input class="input__content__input" name="paymentMethod" placeholder="선택하세요" disabled value="${paymentMethod}" />
 
           <img src=${chevronDown} />
           </button>
@@ -63,7 +55,9 @@ export default class AccountHistoryInput extends Component {
                 ? `<img src=${minus} class="isIncome-btn" />`
                 : `<img src=${plus} class="isIncome-btn" />`
             }
-              <input class="input__content__input" placeholder="입력하세요" dir="rtl" name="inputAmount" value="${inputAmount}" />
+              <input class="input__content__input" placeholder="입력하세요" dir="rtl" name="amount" value="${this.setDot(
+                amount,
+              )}" />
               <p class="input__content__text">원</p>
             </div>
           </div>
@@ -79,15 +73,15 @@ export default class AccountHistoryInput extends Component {
 
   render() {
     super.render();
-    const { category, paymentMethod, inputIsIncome } = this.state;
+    const { categories, paymentMethods, inputIsIncome } = this.state;
     new Dropdown(this.$target.querySelector('#dropdownCategory'), {
       theme: 'category',
       inputIsIncome,
-      dropdownItemList: category,
+      dropdownItemList: categories,
     });
     new Dropdown(this.$target.querySelector('#dropdownPaymentMethod'), {
       theme: 'paymentMethod',
-      dropdownItemList: paymentMethod,
+      dropdownItemList: paymentMethods,
     });
   }
 
@@ -104,7 +98,8 @@ export default class AccountHistoryInput extends Component {
   }
 
   getId(name, inputName) {
-    return this.state[name].find((c) => c.name === this.state[inputName]).id;
+    return this.state[name].find((c) => c.name === this.state.inputs[inputName])
+      .id;
   }
 
   setEvent() {
@@ -114,51 +109,48 @@ export default class AccountHistoryInput extends Component {
         const { style } = this.$target.querySelector('#dropdownCategory');
         style.display = style.display === '' ? 'block' : '';
         if (target.className === 'dropdown__title') {
-          this.$target.querySelector('input[name="inputCategory"]').value =
+          this.$target.querySelector('input[name="category"]').value =
             target.innerHTML;
-          this.validateInput();
-          this.setState({ ...this.state, inputCategory: target.innerHTML });
+          this.setInputs('category', target.innerHTML);
         }
       } else if (target.closest('#paymentMethod')) {
         const { style } = this.$target.querySelector('#dropdownPaymentMethod');
         style.display = style.display === '' ? 'block' : '';
         if (target.className === 'dropdown__title') {
-          this.$target.querySelector('input[name="inputPaymentMethod"]').value =
+          this.$target.querySelector('input[name="paymentMethod"]').value =
             target.innerHTML;
-          this.validateInput();
-          this.setState({
-            ...this.state,
-            inputPaymentMethod: target.innerHTML,
-          });
+          this.setInputs('paymentMethod', target.innerHTML);
         }
       } else if (target.className === 'isIncome-btn') {
-        let { inputIsIncome } = this.state;
-        inputIsIncome = inputIsIncome === '지출' ? '수입' : '지출';
         this.validateInput();
-        this.setState({ ...this.state, inputIsIncome });
+        this.setState({
+          ...this.state,
+          inputIsIncome: this.state.inputIsIncome === '지출' ? '수입' : '지출',
+        });
       } else if (target.className === 'save-btn') {
         if (this.state.isInputDataFilled) {
           this.state.handleCreateAccountHistory({
-            category_id: this.getId('category', 'inputCategory'),
-            payment_method_id: this.getId(
-              'paymentMethod',
-              'inputPaymentMethod',
-            ),
-            amount: parseInt(this.state.inputAmount.replace(/,/g, '')),
-            date: this.state.inputDate,
-            content: this.state.inputContent,
+            category_id: this.getId('categories', 'category'),
+            payment_method_id: this.getId('paymentMethods', 'paymentMethod'),
+            amount: parseInt(this.state.inputs.amount.replace(/,/g, '')),
+            date: this.state.inputs.date,
+            content: this.state.inputs.content,
           });
         }
       }
     });
 
     this.$target.addEventListener('change', (e) => {
-      let { name, value } = e.target;
-      if (name === 'inputAmount') {
-        value = this.setDot(value);
-      }
-      this.validateInput();
-      this.setState({ ...this.state, [name]: value });
+      const { name, value } = e.target;
+      this.setInputs(name, value);
+    });
+  }
+
+  setInputs(name, value) {
+    this.validateInput();
+    this.setState({
+      ...this.state,
+      inputs: { ...this.state.inputs, [name]: value },
     });
   }
 }

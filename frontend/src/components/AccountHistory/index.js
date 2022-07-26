@@ -2,7 +2,6 @@ import Component from '@/utils/Component';
 
 import './index.scss';
 import Badge from '@/components/Badge';
-import controller from '@/controller';
 import { dataProcessing } from '@/utils/dataProcessing';
 
 export class HistoryItem extends Component {
@@ -21,11 +20,16 @@ export class HistoryItem extends Component {
         </div>
     `;
   }
-  render() {
-    super.render();
+
+  mountBadge() {
     new Badge(this.$target.querySelector('.history-item__category'), {
       title: this.state.category,
     });
+  }
+
+  render() {
+    super.render();
+    this.mountBadge();
   }
 }
 
@@ -50,20 +54,26 @@ export class HistoryHeader extends Component {
 }
 
 class HistoryDaily extends Component {
-  render() {
-    super.render();
-    this.$target.innerHTML = '';
+  mountHeader() {
     new HistoryHeader(this.$target, {
       date: this.state.date,
       dayname: this.state.dayname,
       ...dataProcessing.getTotal(this.state.itemList),
     });
+  }
+  mountHistoryItem() {
     this.state.itemList.forEach((historyItem) => {
       const $nextTarget = document.createElement('section');
       $nextTarget.classList.add('history-item');
       this.$target.appendChild($nextTarget);
       new HistoryItem($nextTarget, historyItem);
     });
+  }
+  render() {
+    super.render();
+    this.$target.innerHTML = '';
+    this.mountHeader();
+    this.mountHistoryItem();
   }
 }
 
@@ -74,17 +84,20 @@ export default class AccountHistory extends Component {
     `;
   }
 
-  render() {
-    super.render();
+  mountHistoryDaily() {
     const $history = document.querySelector('.history');
     $history.innerHTML = '';
-    if (!Object.keys(this.state).length) return;
-
     this.state.accountHistoryDataOfCurrentMonth.forEach((history) => {
       const $nextTarget = document.createElement('section');
       $nextTarget.classList.add('history-daily');
       $history.appendChild($nextTarget);
       new HistoryDaily($nextTarget, history);
     });
+  }
+
+  render() {
+    super.render();
+    if (!Object.keys(this.state).length) return;
+    this.mountHistoryDaily();
   }
 }
