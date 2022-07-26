@@ -107,10 +107,6 @@ export default class AccountHistoryInput extends Component {
     return this.state[name].find((c) => c.name === this.state[inputName]).id;
   }
 
-  async handleCreateAccountHistory(data) {
-    await createAccountHistory(data);
-  }
-
   setEvent() {
     this.$target.addEventListener('click', (e) => {
       const { target } = e;
@@ -142,7 +138,7 @@ export default class AccountHistoryInput extends Component {
         this.setState({ ...this.state, inputIsIncome });
       } else if (target.className === 'save-btn') {
         if (this.state.isInputDataFilled) {
-          createAccountHistory({
+          this.state.handleCreateAccountHistory({
             category_id: this.getId('category', 'inputCategory'),
             payment_method_id: this.getId(
               'paymentMethod',
