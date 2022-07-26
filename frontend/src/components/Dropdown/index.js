@@ -3,11 +3,11 @@ import './index.scss';
 
 export default class Dropdown extends Component {
   template() {
-    const { theme, dropdownItemList, isIncomeSelected } = this.state;
+    const { theme, dropdownItemList, inputIsIncome } = this.state;
     let item = [];
     if (theme === 'category') {
       item = dropdownItemList.filter(
-        ({ isIncome }) => isIncomeSelected === isIncome,
+        ({ isIncome }) => inputIsIncome === isIncome,
       );
     } else if (theme === 'paymentMethod') {
       item = dropdownItemList;

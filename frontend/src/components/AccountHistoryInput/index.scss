@@ -71,26 +71,26 @@
 
   .dropdown-state {
     display: none;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 140px;
+    background-color: $offwhite;
+    border: 1px solid $line;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
   }
 
   .save-btn {
     margin: 0 14px 0 0;
+  }
+
+  .isIncome-btn {
+    height: 20px;
   }
 }
 
 #paymentMethod,
 #category {
   position: relative;
-}
-
-#dropdownPaymentMethod,
-#dropdownCategory {
-  position: absolute;
-  top: 80px;
-  left: 0;
-  width: 140px;
-  background-color: $offwhite;
-  border: 1px solid $line;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
 }

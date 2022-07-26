@@ -26,9 +26,11 @@ export default class MainPage extends Component {
         inputCategory: '',
         inputDate: '',
         inputContent: '',
-        inputAmount: 0,
+        inputAmount: '',
+        inputPaymentMethod: '',
         isPaymentMethodOpen: false,
-        isIncomeSelected: '지출',
+        inputIsIncome: '지출',
+        isInputDataFilled: false,
       },
     );
 
