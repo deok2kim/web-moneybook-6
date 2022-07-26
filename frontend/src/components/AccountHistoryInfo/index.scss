@@ -1,7 +1,7 @@
 .history-info {
   width: 848px;
   height: 28px;
-  margin: 40px;
+  margin: 40px 0;
   @include flex(row, space-between, center);
   color: $primary;
   font-family: 'Noto Sans KR';

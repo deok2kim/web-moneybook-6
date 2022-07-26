@@ -4,6 +4,8 @@ import './index.scss';
 import Badge from '@/components/Badge';
 import { dataProcessing } from '@/utils/dataProcessing';
 
+import AccountHistoryInfo from '@/components/AccountHistoryInfo';
+
 export class HistoryItem extends Component {
   template() {
     const { content, paymentMethod, amount, isIncome } = this.state;
@@ -80,7 +82,8 @@ class HistoryDaily extends Component {
 export default class AccountHistory extends Component {
   template() {
     return `
-      <section class="history"></section>
+    <section class="history-info-container"></section>
+    <section class="history"></section>
     `;
   }
 
@@ -95,9 +98,17 @@ export default class AccountHistory extends Component {
     });
   }
 
+  mountHistoryInfo() {
+    new AccountHistoryInfo(
+      this.$target.querySelector('.history-info-container'),
+      this.state,
+    );
+  }
+
   render() {
     super.render();
     if (!Object.keys(this.state).length) return;
     this.mountHistoryDaily();
+    this.mountHistoryInfo();
   }
 }

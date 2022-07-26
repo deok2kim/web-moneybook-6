@@ -1,5 +1,4 @@
 import Component from '@/utils/Component';
-import AccountHistoryInfo from '@/components/AccountHistoryInfo';
 import AccountHistory from '@/components/AccountHistory';
 import AccountHistoryInput from '@/components/AccountHistoryInput';
 import controller from '@/controller';
@@ -37,15 +36,11 @@ export default class MainPage extends Component {
       },
     );
 
-    new AccountHistoryInfo(
-      this.$target.querySelector('.history-info-container'),
-      this.state,
-    );
-
-    new AccountHistory(
-      this.$target.querySelector('.history-container'),
-      this.state,
-    );
+    new AccountHistory(this.$target.querySelector('.history-container'), {
+      ...this.state,
+      isSelectedIncomeFilter: true,
+      isSelectedExpenditureFilter: true,
+    });
   }
 
   handleCreateAccountHistory = async (data) => {
