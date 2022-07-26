@@ -56,24 +56,26 @@ export default class MainPage extends Component {
   };
 
   async dataSubscribe() {
-    const { key, value } = controller.subscribe({
+    const accountHistoryState = controller.subscribe({
       $el: this,
       key: 'accountHistory',
     });
+    const accountHistory = await accountHistoryState.value;
+    const accountHistoryTotalInfo = dataProcessing.getTotal(accountHistory);
+    const accountHistoryDataOfCurrentMonth =
+      dataProcessing.getDaily(accountHistory);
+
     const categoryState = controller.subscribe({
       $el: this,
       key: 'category',
     });
+    const categories = await categoryState.value;
+
     const paymentMethodState = controller.subscribe({
       $el: this,
       key: 'paymentMethod',
     });
-    const accountHistory = await value;
-    const accountHistoryTotalInfo = dataProcessing.getTotal(accountHistory);
-    const categories = await categoryState.value;
     const paymentMethods = await paymentMethodState.value;
-    const accountHistoryDataOfCurrentMonth =
-      dataProcessing.getDaily(accountHistory);
 
     this.setState({
       ...this.state,
