@@ -91,6 +91,7 @@ export default class AccountHistoryInput extends Component {
     new Dropdown(this.$target.querySelector('#dropdownPaymentMethod'), {
       theme: 'paymentMethod',
       dropdownItemList: paymentMethods,
+      isOpenAlert: false,
     });
   }
 
@@ -118,7 +119,7 @@ export default class AccountHistoryInput extends Component {
   }
 
   setEvent() {
-    document.querySelector('.mainPage').addEventListener('click', (e) => {
+    this.$target.addEventListener('click', (e) => {
       const { target } = e;
       if (target.closest('#category')) {
         const { style } = this.$target.querySelector('#dropdownCategory');
