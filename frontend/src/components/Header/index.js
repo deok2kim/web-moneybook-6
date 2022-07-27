@@ -57,11 +57,11 @@ export default class Header extends Component {
     });
   }
 
-  dataSubscribe() {
-    const { key, value } = controller.subscribe({
+  async dataSubscribe() {
+    const currentMonth = controller.subscribe({
       $el: this,
       key: 'currentMonth',
     });
-    this.setState({ ...this.state, [key]: value });
+    this.setState({ ...this.state, [currentMonth.key]: currentMonth.value });
   }
 }

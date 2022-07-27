@@ -9,9 +9,15 @@ class Controller {
   }
 
   subscribe({ $el, key }) {
-    this.subscribers = this.subscribers.filter(
-      (subscriber) => subscriber.key !== key,
-    );
+    this.subscribers = this.subscribers.filter((subscriber) => {
+      if (
+        subscriber.key === key &&
+        subscriber.$el.constructor.name === $el.constructor.name
+      ) {
+        return false;
+      }
+      return true;
+    });
     this.subscribers.push({
       $el,
       key,

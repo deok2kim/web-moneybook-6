@@ -60,7 +60,7 @@ export default class MainPage extends Component {
   async dataSubscribe() {
     const currentMonth = controller.subscribe({
       $el: this,
-      key: 'accountHistory',
+      key: 'currentMonth',
     });
     const accountHistoryState = controller.subscribe({
       $el: this,
