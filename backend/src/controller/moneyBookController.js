@@ -13,6 +13,19 @@ exports.getMoneyBookData = async (req, res) => {
     });
   }
 };
+exports.getMoneyBookRangeData = async (req, res) => {
+  try {
+    const { start, end } = req.query;
+    data = await moneyBookService.getMoneyBookRangeData(start, end);
+    res.json(data);
+  } catch {
+    res.json({
+      status: infoStore.status.failure,
+      message: infoStore.message.getFailure,
+    });
+  }
+};
+
 exports.addMoneyBookData = async (req, res) => {
   try {
     await moneyBookService.addMoneyBookData(req.body);

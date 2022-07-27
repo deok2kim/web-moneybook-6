@@ -38,6 +38,7 @@ export default class Header extends Component {
       currentMonth = currentMonth === 1 ? 12 : --currentMonth;
     }
     controller.setStoreData({ key: 'currentMonth', nextState: currentMonth });
+    controller.setStoreData({ key: 'selectedCategory', nextState: '' });
   }
 
   setEvent() {

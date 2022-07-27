@@ -109,4 +109,44 @@ export const dataProcessing = {
     });
     return totalPerDay;
   },
+  getCategoryTotal: function (data = []) {
+    const currentMonthTotalExpenditure = this.getTotalExpenditure(data);
+    let categoryExpenditures = {};
+
+    const category_colors = {
+      생활: '#4a6cc3',
+      '의료/건강': '#6ed5eb',
+      '쇼핑/뷰티': '#4cb8b8',
+      교통: '#94d3cc',
+      식비: '#4ca1de',
+      '문화/여가': '#d092e2',
+      미분류: '#817dce',
+    };
+
+    data.map((d) => {
+      if (d.isIncome !== '지출') return;
+      if (categoryExpenditures[d.category]) {
+        categoryExpenditures[d.category].amount += d.amount;
+      } else {
+        categoryExpenditures[d.category] = {
+          amount: d.amount,
+          name: d.category,
+          color: category_colors[d.category],
+        };
+      }
+    });
+
+    let accIntPercent = 0;
+    let accFloatPercent = 0;
+    for (let [k, v] of Object.entries(categoryExpenditures)) {
+      let curFloatPercent = (v.amount / currentMonthTotalExpenditure) * 100;
+      let curIntPercent =
+        Math.round(curFloatPercent + accFloatPercent) - accIntPercent;
+      accIntPercent += curIntPercent;
+      accFloatPercent += curFloatPercent;
+      v.percent = curIntPercent;
+    }
+
+    return categoryExpenditures;
+  },
 };

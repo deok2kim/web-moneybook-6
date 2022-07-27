@@ -10,7 +10,10 @@ class Controller {
 
   subscribe({ $el, key }) {
     this.subscribers = this.subscribers.filter((subscriber) => {
-       return subscriber.key !== key || subscriber.$el.constructor.name !== $el.constructor.name;
+      return (
+        subscriber.key !== key ||
+        subscriber.$el.constructor.name !== $el.constructor.name
+      );
     });
     this.subscribers.push({
       $el,

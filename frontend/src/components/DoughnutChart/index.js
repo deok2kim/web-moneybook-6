@@ -14,10 +14,11 @@ export default class DoughnutChart extends Component {
   }
 
   createDoughnutChart() {
+    if (Object.keys(this.state).length === 0) return;
     const colors = [];
     const dataset = [];
 
-    this.state.categorys.forEach((data) => {
+    Object.values(this.state.categoryExpenditures).map((data) => {
       dataset.push(data.percent);
       colors.push(data.color);
     });

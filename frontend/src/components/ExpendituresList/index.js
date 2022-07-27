@@ -3,10 +3,11 @@ import './index.scss';
 
 export default class ExpendituresList extends Component {
   template() {
-    return this.state.categorys
-      .map(
-        ({ color, name, amount, percent }) =>
-          `<li class="expenditures__list-item">
+    if (!this.state.categoryExpenditures) return;
+    let htmlTemplate = '';
+    Object.values(this.state.categoryExpenditures).map(
+      ({ name, amount, percent, color }) => {
+        htmlTemplate += `<li class="expenditures__list-item">
           <div class="expenditures__list-item-badge--item-badge" style="background-color:${color};">
             ${name}
           </div>
@@ -14,10 +15,9 @@ export default class ExpendituresList extends Component {
           <div class="expenditures__list-item-text--item-amount">
             ${amount}
           </div>
-        </li>`,
-      )
-      .join('');
+        </li>`;
+      },
+    );
+    return htmlTemplate;
   }
-
-  setEvent() {}
 }

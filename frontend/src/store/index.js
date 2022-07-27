@@ -1,6 +1,9 @@
 import controller from '@/controller';
 import { getCategory } from '@/api/category';
-import { getAccountHistory } from '@/api/accountHistory';
+import {
+  getAccountHistory,
+  getAccountRangeHistory,
+} from '@/api/accountHistory';
 import { getPaymentMethod } from '@/api/paymentMethod';
 
 class Store {
@@ -57,6 +60,12 @@ export const accountHistory = new Store(
   currentMonth,
   getAccountHistory,
 );
+export const accountRangeHistory = new Store(
+  'accountRangeHistory',
+  [],
+  currentMonth,
+  getAccountRangeHistory,
+);
 export const category = new Store('category', [], null, getCategory);
 export const paymentMethod = new Store(
   'paymentMethod',
@@ -64,6 +73,8 @@ export const paymentMethod = new Store(
   null,
   getPaymentMethod,
 );
+
+export const selectedCategory = new Store('selectedCategory', '');
 
 export const historyFilter = new Store('historyFilter', {
   income: true,

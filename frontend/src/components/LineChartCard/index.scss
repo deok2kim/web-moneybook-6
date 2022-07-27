@@ -21,4 +21,9 @@
     flex-direction: row;
     justify-content: space-between;
   }
+  &__chart-container {
+    margin-top: 20px;
+    width: 698px;
+    height: 320px;
+  }
 }
