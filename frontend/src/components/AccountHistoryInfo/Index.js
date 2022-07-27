@@ -53,6 +53,15 @@ export default class AccountHistoryInfo extends Component {
       $el: this,
       key: 'historyFilter',
     });
-    this.setState({ ...this.state, historyFilter: historyFilter.value });
+
+    const historyEditState = controller.subscribe({
+      $el: this,
+      key: 'historyEditState',
+    });
+    this.setState({
+      ...this.state,
+      historyFilter: historyFilter.value,
+      historyEditState: historyEditState.value,
+    });
   }
 }

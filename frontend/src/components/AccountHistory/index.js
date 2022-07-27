@@ -68,13 +68,13 @@ class HistoryDaily extends Component {
     this.state.itemList.forEach((historyItem) => {
       const $nextTarget = document.createElement('section');
       $nextTarget.classList.add('history-item');
+      $nextTarget.dataset.id = historyItem.id;
       this.$target.appendChild($nextTarget);
       new HistoryItem($nextTarget, historyItem);
     });
   }
   render() {
     super.render();
-    this.$target.innerHTML = '';
     this.mountHeader();
     this.mountHistoryItem();
   }
@@ -98,8 +98,6 @@ export default class AccountHistory extends Component {
         $history.appendChild($nextTarget);
         new HistoryDaily($nextTarget, {
           ...history,
-          isSelectedExpenditureFilter: this.state.isSelectedExpenditureFilter,
-          isSelectedIncomeFilter: this.state.isSelectedIncomeFilter,
         });
       },
     );
@@ -134,11 +132,33 @@ export default class AccountHistory extends Component {
     this.mountHistoryInfo();
   }
 
+  setEvent() {
+    document.querySelector('.mainPage').addEventListener('click', (e) => {
+      const $historyItem = e.target.closest('.history-item');
+      if ($historyItem) {
+        const { id } = $historyItem.dataset;
+        const selectedHistoy = this.state.accountHistory.find(
+          (history) => history.id === +id,
+        );
+        if (selectedHistoy) {
+          controller.setStoreData({
+            key: 'historyEditState',
+            nextState: {
+              isEditing: true,
+              inputs: selectedHistoy,
+            },
+          });
+        }
+      }
+    });
+  }
+
   dataSubscribe() {
     const historyFilter = controller.subscribe({
       $el: this,
       key: 'historyFilter',
     });
+
     this.setState({ ...this.state, historyFilter: historyFilter.value });
   }
 }

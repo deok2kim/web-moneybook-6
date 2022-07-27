@@ -5,12 +5,12 @@ import controller from '@/controller';
 import './index.scss';
 import { dataProcessing } from '@/utils/dataProcessing';
 import { createAccountHistory } from '@/api/accountHistory';
+import { updateAccountHistory } from '../../api/accountHistory';
 export default class MainPage extends Component {
   template() {
     return /*html*/ `
       <main class="mainPage">
         <article class="input-bar-container"></article>
-        <article class="history-info-container"></article>
         <article class="history-container"></article>
       </main>
     `;
@@ -30,9 +30,10 @@ export default class MainPage extends Component {
           amount: '',
           paymentMethod: '',
         },
-        inputIsIncome: '지출',
+        isInputIncome: '지출',
         isInputDataFilled: false,
-        handleCreateAccountHistory: this.handleCreateAccountHistory,
+        onCreateAccountHistory: this.handleCreateAccountHistory,
+        onUpdateAccountHistory: this.handleUpdateAccountHistory,
       },
     );
 
@@ -49,7 +50,18 @@ export default class MainPage extends Component {
     }
   };
 
+  handleUpdateAccountHistory = async (data) => {
+    const res = await updateAccountHistory(data);
+    if (res.status === 'ok') {
+      this.dataSubscribe();
+    }
+  };
+
   async dataSubscribe() {
+    const currentMonth = controller.subscribe({
+      $el: this,
+      key: 'accountHistory',
+    });
     const accountHistoryState = controller.subscribe({
       $el: this,
       key: 'accountHistory',
@@ -75,6 +87,7 @@ export default class MainPage extends Component {
       ...this.state,
       accountHistoryTotalInfo,
       accountHistoryDataOfCurrentMonth,
+      accountHistory,
       categories,
       paymentMethods,
     });
