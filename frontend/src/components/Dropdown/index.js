@@ -21,9 +21,18 @@ export default class Dropdown extends Component {
             <p class="dropdown__title">${name}</p>
             <div class="divider"></div>
           </li>
+
         `,
           )
           .join('')}
+          ${
+            theme === 'paymentMethod'
+              ? `<li class="title-wrapper">
+          <p class="dropdown__title btn-add-payment">추가하기</p>
+          <div class="divider"></div>`
+              : ''
+          }
+        </li>
       </ul>
     `;
   }
