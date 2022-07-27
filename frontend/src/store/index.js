@@ -69,3 +69,8 @@ export const historyFilter = new Store('historyFilter', {
   income: true,
   expenditure: true,
 });
+
+export const historyEditState = new Store('historyEditState', {
+  isEditing: false,
+  inputs: {},
+});
