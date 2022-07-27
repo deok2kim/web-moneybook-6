@@ -9,15 +9,11 @@ class Controller {
   }
 
   subscribe({ $el, key }) {
-    const isSubscribe = this.subscribers.findIndex(
-      (subscriber) => subscriber.key === key,
-    );
-    if (isSubscribe === -1) {
-      this.subscribers.push({
-        $el,
-        key,
-      });
-    }
+    this.subscribers.filter((subscriber) => subscriber.key !== key);
+    this.subscribers.push({
+      $el,
+      key,
+    });
     return this.getStoreData(key);
   }
 
@@ -27,7 +23,7 @@ class Controller {
     );
   }
 
-  notify(key, nextState) {
+  notify(key) {
     this.subscribers.forEach((subscriber) => {
       if (subscriber.key === key) {
         subscriber.$el.dataSubscribe();
