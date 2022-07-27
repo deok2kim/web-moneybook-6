@@ -74,3 +74,5 @@ export const historyEditState = new Store('historyEditState', {
   isEditing: false,
   inputs: {},
 });
+
+export const isOpenAlert = new Store('isOpenAlert', false);

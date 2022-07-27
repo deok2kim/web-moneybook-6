@@ -10,3 +10,15 @@ export const getPaymentMethod = async () => {
   const json = await res.json();
   return json;
 };
+
+export const createPaymentMethod = async (params) => {
+  const res = await fetch(`${BASE_URL}/payment_method`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params),
+  });
+  const json = await res.json();
+  return json;
+};
