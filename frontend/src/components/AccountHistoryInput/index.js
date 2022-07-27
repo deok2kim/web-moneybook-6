@@ -10,7 +10,7 @@ import controller from '@/controller';
 
 export default class AccountHistoryInput extends Component {
   template() {
-    let { inputIsIncome, isInputDataFilled, inputs } = this.state;
+    let { isInputIncome, isInputDataFilled, inputs } = this.state;
 
     let { category, date, content, amount, paymentMethod } = inputs;
     return /*html*/ `
@@ -59,7 +59,7 @@ export default class AccountHistoryInput extends Component {
           <p class="input__title">금액</p>
             <div class="input__input-wrapper">
             ${
-              inputIsIncome === '지출'
+              isInputIncome === '지출'
                 ? `<img src=${minus} class="isIncome-btn" />`
                 : `<img src=${plus} class="isIncome-btn" />`
             }
@@ -82,10 +82,10 @@ export default class AccountHistoryInput extends Component {
   render() {
     super.render();
     this.$target.innerHTML = this.template();
-    const { categories, paymentMethods, inputIsIncome } = this.state;
+    const { categories, paymentMethods, isInputIncome } = this.state;
     new Dropdown(this.$target.querySelector('#dropdownCategory'), {
       theme: 'category',
-      inputIsIncome,
+      isInputIncome,
       dropdownItemList: categories,
     });
     new Dropdown(this.$target.querySelector('#dropdownPaymentMethod'), {
@@ -140,7 +140,7 @@ export default class AccountHistoryInput extends Component {
         this.validateInput();
         this.setState({
           ...this.state,
-          inputIsIncome: this.state.inputIsIncome === '지출' ? '수입' : '지출',
+          isInputIncome: this.state.isInputIncome === '지출' ? '수입' : '지출',
         });
       } else if (target.className === 'save-btn') {
         if (this.state.historyEditState.isEditing) {
@@ -213,7 +213,7 @@ export default class AccountHistoryInput extends Component {
           amount,
           id,
         },
-        inputIsIncome: isIncome,
+        isInputIncome: isIncome,
       });
     } else {
       this.setState({

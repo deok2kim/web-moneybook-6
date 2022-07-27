@@ -30,7 +30,7 @@ export default class MainPage extends Component {
           amount: '',
           paymentMethod: '',
         },
-        inputIsIncome: '지출',
+        isInputIncome: '지출',
         isInputDataFilled: false,
         onCreateAccountHistory: this.handleCreateAccountHistory,
         onUpdateAccountHistory: this.handleUpdateAccountHistory,
