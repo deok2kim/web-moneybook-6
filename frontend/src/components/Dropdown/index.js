@@ -23,6 +23,7 @@ export default class Dropdown extends Component {
             <p class="dropdown__title">${name}</p>
             <div class="divider"></div>
           </li>
+
         `,
           )
           .join('')}
