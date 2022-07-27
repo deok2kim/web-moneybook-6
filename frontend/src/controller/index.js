@@ -27,6 +27,11 @@ class Controller {
       (subscriber) => subscriber.$el != $el && subscriber.key != key,
     );
   }
+  initSubscribe(name) {
+    this.subscribers = this.subscribers.filter((subscriber) => {
+      return subscriber.$el.constructor.name === name;
+    });
+  }
 
   notify(key) {
     this.subscribers.forEach((subscriber) => {
