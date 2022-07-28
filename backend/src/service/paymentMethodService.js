@@ -11,7 +11,7 @@ exports.addPaymentMethodData = async (bodyData) => {
   } catch (err) {
     throw err;
   } finally {
-    connection?.release();
+    connection.release();
   }
 };
 
@@ -23,7 +23,7 @@ exports.getPaymentMethodData = async () => {
   } catch (err) {
     throw err;
   } finally {
-    connection?.release();
+    connection.release();
   }
 };
 
@@ -36,6 +36,6 @@ exports.deletePaymentMethodData = async (paramsData) => {
   } catch (err) {
     throw err;
   } finally {
-    connection?.release();
+    connection.release();
   }
 };

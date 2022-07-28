@@ -12,7 +12,7 @@ exports.getMoneyBookData = async (date) => {
     console.error(err);
     throw err;
   } finally {
-    connection?.release();
+    connection.release();
   }
 };
 
@@ -28,7 +28,7 @@ exports.getMoneyBookRangeData = async (start, end) => {
     console.error(err);
     throw err;
   } finally {
-    connection?.release();
+    connection.release();
   }
 };
 
@@ -44,7 +44,7 @@ exports.addMoneyBookData = async (bodyData) => {
   } catch (err) {
     throw err;
   } finally {
-    connection?.release();
+    connection.release();
   }
 };
 
@@ -61,7 +61,7 @@ exports.updateMoneyBookData = async (paramsData, bodyData) => {
   } catch (err) {
     throw err;
   } finally {
-    connection?.release();
+    connection.release();
   }
 };
 
@@ -74,6 +74,6 @@ exports.deleteMoneyBookData = async (paramsData) => {
   } catch (err) {
     throw err;
   } finally {
-    connection?.release();
+    connection.release();
   }
 };

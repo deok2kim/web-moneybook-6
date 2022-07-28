@@ -8,6 +8,6 @@ exports.getCategoryData = async () => {
   } catch (err) {
     throw err;
   } finally {
-    connection?.release();
+    connection.release();
   }
 };
