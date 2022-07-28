@@ -31,10 +31,7 @@ exports.deletePaymentMethodData = async (paramsData) => {
   const connection = await pool.getConnection();
   try {
     const { id } = paramsData;
-    await connection.query(
-      'DELETE FROM payment_method WHERE payment_method_id = ?',
-      [id]
-    );
+    await connection.query('DELETE FROM payment_method WHERE id = ?', [id]);
     return;
   } catch (err) {
     throw err;

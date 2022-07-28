@@ -15,7 +15,7 @@ export default class AccountHistoryInput extends Component {
     let { category, date, content, amount, paymentMethod } = inputs;
     return /*html*/ `
       <section class="input">
-        <div class="input-wrapper">
+        <div class="input-wrapper input-wrapper--long">
           <p class="input__title">날짜</p>
           <input class="input__content__input" name="date" type="date" placeholder="입력하세요" value="${
             date
@@ -91,7 +91,6 @@ export default class AccountHistoryInput extends Component {
     new Dropdown(this.$target.querySelector('#dropdownPaymentMethod'), {
       theme: 'paymentMethod',
       dropdownItemList: paymentMethods,
-      isOpenAlert: false,
     });
   }
 
@@ -121,21 +120,26 @@ export default class AccountHistoryInput extends Component {
   setEvent() {
     this.$target.addEventListener('click', (e) => {
       const { target } = e;
+      const $titleWrapper = target.closest('.title-wrapper');
       if (target.closest('#category')) {
         const { style } = this.$target.querySelector('#dropdownCategory');
         style.display = style.display === '' ? 'block' : '';
-        if (target.className === 'dropdown__title') {
-          this.$target.querySelector('input[name="category"]').value =
-            target.innerHTML;
-          this.setInputs('category', target.innerHTML);
+
+        if ($titleWrapper) {
+          const text =
+            $titleWrapper.querySelector('.dropdown__title').innerHTML;
+          this.$target.querySelector('input[name="category"]').value = text;
+          this.setInputs('category', text);
         }
       } else if (target.closest('#paymentMethod')) {
         const { style } = this.$target.querySelector('#dropdownPaymentMethod');
         style.display = style.display === '' ? 'block' : '';
-        if (target.className === 'dropdown__title') {
+        if ($titleWrapper) {
+          const text =
+            $titleWrapper.querySelector('.dropdown__title').innerHTML;
           this.$target.querySelector('input[name="paymentMethod"]').value =
-            target.innerHTML;
-          this.setInputs('paymentMethod', target.innerHTML);
+            text;
+          this.setInputs('paymentMethod', text);
         }
       } else if (target.className === 'isIncome-btn') {
         this.validateInput();

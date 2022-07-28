@@ -86,4 +86,7 @@ export const historyEditState = new Store('historyEditState', {
   inputs: {},
 });
 
-export const isOpenAlert = new Store('isOpenAlert', false);
+export const alertState = new Store('alertState', {
+  isOpen: false,
+  theme: {},
+});
