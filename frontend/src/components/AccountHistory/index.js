@@ -146,7 +146,7 @@ export default class AccountHistory extends Component {
 
   render() {
     super.render();
-    this.mountHistoryDaily();
+    if (this.state.accountHistory.length) this.mountHistoryDaily();
     if (!this.state.selectedCategory) this.mountHistoryInfo();
   }
 

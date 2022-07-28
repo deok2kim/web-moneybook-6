@@ -103,6 +103,7 @@ export default class StatisticsPage extends Component {
       accountHistoryDataOfCurrentMonth,
       categories,
       paymentMethods,
+      accountHistory,
     });
   }
 }
