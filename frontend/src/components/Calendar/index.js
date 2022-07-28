@@ -11,13 +11,13 @@ export default class Calendar extends Component {
     dates.forEach((date, i) => {
       const isSameDay =
         setCurrentDate().split('-').join('') ===
-        `${this.state.currentMonth}${date < 10 ? '0' + date : date}`;
-      dates[i] = `<div class="calendar__container--date-Box" data-month = '${
-        this.state.currentMonth + 1
-      }' data-date = '${date}' style="background-color:${
-        isSameDay ? '#F5F5F5' : ''
-      }"></div>`;
-      console.log(dates[i]);
+        `${this.state.currentMonth}${date < 10 ? '0' + date : date}`
+          ? 'sameDay'
+          : '';
+
+      dates[
+        i
+      ] = `<div class="calendar__container--date-Box date-Box-${isSameDay}" data-month = '${this.state.currentMonth}' data-date = '${date}'></div>`;
     });
 
     return dates.join('');
