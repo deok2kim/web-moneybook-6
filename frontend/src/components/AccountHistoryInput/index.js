@@ -7,7 +7,7 @@ import saveActive from '@/assets/images/saveActive.svg';
 import chevronDown from '@/assets/images/chevronDown.svg';
 import Dropdown from '@/components/Dropdown';
 import controller from '@/controller';
-import { setComma } from '@/utils/common';
+import { setComma, setCurrentDate } from '@/utils/common';
 
 export default class AccountHistoryInput extends Component {
   template() {
@@ -19,11 +19,7 @@ export default class AccountHistoryInput extends Component {
         <div class="input-wrapper input-wrapper--long">
           <p class="input__title">날짜</p>
           <input class="input__content__input" name="date" type="date" placeholder="입력하세요" value="${
-            date
-              ? date
-              : `${new Date().getFullYear()}-0${
-                  new Date().getMonth() + 1
-                }-${new Date().getDate()}`
+            date ? date : `${setCurrentDate()}`
           }" />
         </div>
         <div class="divider"></div>
@@ -154,7 +150,7 @@ export default class AccountHistoryInput extends Component {
             category_id: this.getId('categories', 'category'),
             payment_method_id: this.getId('paymentMethods', 'paymentMethod'),
             amount: this.dotNumberToPureNumber(this.state.inputs.amount),
-            date: this.state.inputs.date,
+            date: this.state.inputs.date || setCurrentDate(),
             content: this.state.inputs.content,
             id: this.state.inputs.id,
           };
@@ -171,7 +167,7 @@ export default class AccountHistoryInput extends Component {
             category_id: this.getId('categories', 'category'),
             payment_method_id: this.getId('paymentMethods', 'paymentMethod'),
             amount: this.dotNumberToPureNumber(this.state.inputs.amount),
-            date: this.state.inputs.date,
+            date: this.state.inputs.date || setCurrentDate(),
             content: this.state.inputs.content,
           };
           this.state.onCreateAccountHistory(data);

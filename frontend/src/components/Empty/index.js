@@ -1,5 +1,4 @@
 import Component from '@/utils/Component';
-// import empty from '@/assets/images/empty.png';
 import empty from '@/assets/images/empty.jpeg';
 import './index.scss';
 

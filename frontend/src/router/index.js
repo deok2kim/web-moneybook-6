@@ -1,6 +1,7 @@
 import MainPage from '@/pages/MainPage';
 import CalendarPage from '@/pages/CalendarPage';
 import StatisticsPage from '@/pages/StatisticsPage';
+import NotFound from '@/components/NotFound';
 import controller from '@/controller';
 
 export const route = () => {
@@ -15,6 +16,7 @@ export const route = () => {
   } else if (pathname === '/statistics') {
     new StatisticsPage($body);
   } else {
-    $body.innerHTML = '<h1>404 NOT FOUND</h1>';
+    // $body.innerHTML = '<h1>404 NOT FOUND</h1>';
+    new NotFound($body);
   }
 };

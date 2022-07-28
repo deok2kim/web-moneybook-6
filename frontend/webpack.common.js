@@ -27,7 +27,7 @@ const config = {
         type: 'asset/inline',
       },
       {
-        test: /\.jpeg/,
+        test: /\.jpeg|png/,
         type: 'asset/resource',
       },
       {
@@ -44,7 +44,7 @@ const config = {
         ],
       },
       {
-        test: /\.(png|gif|ico)$/,
+        test: /\.(gif|ico)$/,
         use: [
           {
             loader: 'url-loader',

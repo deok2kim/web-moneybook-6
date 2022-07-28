@@ -18,3 +18,9 @@ Number.prototype.fillZero = function (width) {
   let n = String(this);
   return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 };
+
+export const setCurrentDate = () => {
+  return `${new Date().getFullYear()}-${(new Date().getMonth() + 1).fillZero(
+    2,
+  )}-${new Date().getDate().fillZero(2)}`;
+};
