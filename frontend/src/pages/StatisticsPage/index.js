@@ -13,21 +13,29 @@ export default class StatisticsPage extends Component {
       <div class="statisticsPage">
         <div class="statisticsCard"></div>
         <div class="lineChartCard"></div>
-        <div class="historys"></div>
+        <div class="history-container"></div>
       </div>
     `;
   }
 
   render() {
     super.render();
-    new StatisticsCard(document.querySelector('.statisticsCard'), this.state);
-    new LineChartCard(document.querySelector('.lineChartCard'), this.state);
+    if (!Object.keys(this.state).length) return;
+    new StatisticsCard(
+      this.$target.querySelector('.statisticsCard'),
+      this.state,
+    );
+    new LineChartCard(this.$target.querySelector('.lineChartCard'), this.state);
+    if (!this.state.selectedCategory) return;
+    new AccountHistory(
+      this.$target.querySelector('.history-container'),
+      this.state,
+    );
   }
 
   setEvent() {
     this.$target.addEventListener('click', (e) => {
       const nearListItem = e.target.closest('li');
-      const lineChartCard = document.querySelector('.lineChartCard');
       if (
         nearListItem &&
         nearListItem.className === 'expenditures__list-item'
@@ -59,6 +67,21 @@ export default class StatisticsPage extends Component {
       $el: this,
       key: 'selectedCategory',
     });
+    const categoryState = controller.subscribe({
+      $el: this,
+      key: 'category',
+    });
+    const paymentMethodState = controller.subscribe({
+      $el: this,
+      key: 'paymentMethod',
+    });
+
+    const accountHistory = await accountHistoryState.value;
+    const accountHistoryTotalInfo = dataProcessing.getTotal(accountHistory);
+    const accountHistoryDataOfCurrentMonth =
+      dataProcessing.getDaily(accountHistory);
+    const categories = await categoryState.value;
+    const paymentMethods = await paymentMethodState.value;
 
     const accountHistoryData = await accountHistoryState.value;
     const categoryExpenditures =
@@ -76,6 +99,10 @@ export default class StatisticsPage extends Component {
       accountRangeHistoryData,
       currentMonthData,
       selectedCategory,
+      accountHistoryTotalInfo,
+      accountHistoryDataOfCurrentMonth,
+      categories,
+      paymentMethods,
     });
   }
 }

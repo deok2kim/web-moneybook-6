@@ -39,7 +39,6 @@ export class HistoryItem extends Component {
 export class HistoryHeader extends Component {
   template() {
     const { totalIncome, totalExpenditure, date, dayname } = this.state;
-
     return /*html*/ `
       <section class="history-header">
         <div class="history-header__day-wrapper">
@@ -48,8 +47,16 @@ export class HistoryHeader extends Component {
         </div>
         <div class="history-item__amount-wrapper">
           <p class="history-header__amountTotal">
-          ${totalIncome > 0 ? '수입' + totalIncome : ''}
-          ${totalExpenditure > 0 ? '지출' + totalExpenditure : ''}</p>
+          ${
+            totalIncome > 0 && !this.state.selectedCategory
+              ? '수입' + totalIncome
+              : ''
+          }
+          ${
+            totalExpenditure > 0 && !this.state.selectedCategory
+              ? '지출' + totalExpenditure
+              : ''
+          }</p>
         </div>
       </section>
       `;
@@ -61,6 +68,7 @@ class HistoryDaily extends Component {
     new HistoryHeader(this.$target, {
       date: this.state.date,
       dayname: this.state.dayname,
+      selectedCategory: this.state.selectedCategory,
       ...dataProcessing.getTotal(this.state.itemList),
     });
   }
@@ -91,6 +99,15 @@ export default class AccountHistory extends Component {
   mountHistoryDaily() {
     const $history = document.querySelector('.history');
     $history.innerHTML = '';
+    if (this.state.selectedCategory) {
+      this.state.accountHistoryDateOfCurrentMonth =
+        this.state.accountHistoryDataOfCurrentMonth.filter((d) => {
+          d.itemList = d.itemList.filter(
+            (listItem) => listItem.category === this.state.selectedCategory,
+          );
+          return d.itemList.length === 0 ? false : true;
+        });
+    }
     this.historyFilter(this.state.accountHistoryDataOfCurrentMonth).forEach(
       (history) => {
         const $nextTarget = document.createElement('section');
@@ -98,6 +115,7 @@ export default class AccountHistory extends Component {
         $history.appendChild($nextTarget);
         new HistoryDaily($nextTarget, {
           ...history,
+          selectedCategory: this.state.selectedCategory,
         });
       },
     );
@@ -129,10 +147,11 @@ export default class AccountHistory extends Component {
   render() {
     super.render();
     this.mountHistoryDaily();
-    this.mountHistoryInfo();
+    if (!this.state.selectedCategory) this.mountHistoryInfo();
   }
 
   setEvent() {
+    if (this.state.selectedCategory) return;
     document.querySelector('.mainPage').addEventListener('click', (e) => {
       const $historyItem = e.target.closest('.history-item');
       if ($historyItem) {
