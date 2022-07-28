@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, '..', 'backend', 'dist'),
     filename: 'build.js',
   },
   module: {
@@ -60,7 +60,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './public/index.html'),
       inject: true,
-      filename: path.resolve(__dirname, './dist/index.html'),
+      filename: path.resolve(__dirname, '..', 'backend', 'dist', 'index.html'),
       type: 'module',
     }),
     new CleanWebpackPlugin({ filename: 'build.js' }),
