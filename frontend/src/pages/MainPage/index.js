@@ -6,6 +6,7 @@ import './index.scss';
 import { dataProcessing } from '@/utils/dataProcessing';
 import { createAccountHistory } from '@/api/accountHistory';
 import { updateAccountHistory } from '../../api/accountHistory';
+import Empty from '@/components/Empty';
 export default class MainPage extends Component {
   template() {
     return /*html*/ `
@@ -18,7 +19,7 @@ export default class MainPage extends Component {
 
   render() {
     super.render();
-    if (!this.state.accountHistoryTotalInfo) return;
+
     new AccountHistoryInput(
       this.$target.querySelector('.input-bar-container'),
       {
@@ -36,7 +37,13 @@ export default class MainPage extends Component {
         onUpdateAccountHistory: this.handleUpdateAccountHistory,
       },
     );
-
+    if (
+      !this.state.accountHistoryTotalInfo ||
+      !this.state.accountHistory.length
+    ) {
+      new Empty(this.$target.querySelector('.history-container'));
+      return;
+    }
     new AccountHistory(
       this.$target.querySelector('.history-container'),
       this.state,

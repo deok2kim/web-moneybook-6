@@ -9,6 +9,8 @@ import { deletePaymentMethod } from '@/api/paymentMethod';
 export default class Dropdown extends Component {
   template() {
     const { theme, dropdownItemList, isInputIncome } = this.state;
+
+    if (!dropdownItemList) return ``;
     let item = [];
     if (theme === 'category') {
       item = dropdownItemList.filter(

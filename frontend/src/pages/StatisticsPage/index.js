@@ -4,6 +4,7 @@ import LineChartCard from '@/components/LineChartCard/index';
 import AccountHistory from '@/components/AccountHistory';
 import { dataProcessing } from '@/utils/dataProcessing';
 import controller from '@/controller';
+import Empty from '@/components/Empty';
 
 import './index.scss';
 
@@ -21,6 +22,10 @@ export default class StatisticsPage extends Component {
   render() {
     super.render();
     if (!Object.keys(this.state).length) return;
+    if (!this.state.accountHistory.length) {
+      new Empty(this.$target);
+      return;
+    }
     new StatisticsCard(
       this.$target.querySelector('.statisticsCard'),
       this.state,

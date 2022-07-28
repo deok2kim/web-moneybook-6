@@ -21,6 +21,10 @@ const config = {
         type: 'asset/inline',
       },
       {
+        test: /\.jpeg/,
+        type: 'asset/resource',
+      },
+      {
         test: /\.(sa|sc|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
@@ -34,12 +38,12 @@ const config = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|ico)$/,
+        test: /\.(png|gif|ico)$/,
         use: [
           {
             loader: 'url-loader',
             options: {
-              name: 'images/[name].[ext]?[hash]',
+              // name: 'images/[name].[ext]?[hash]',
               limit: 10000,
             },
           },
@@ -50,7 +54,7 @@ const config = {
   resolve: {
     extensions: ['.js'],
     alias: {
-      '@': path.resolve(__dirname, 'src/'),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
   plugins: [

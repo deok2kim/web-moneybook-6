@@ -1,0 +1,7 @@
+.empty {
+  @include flex(row, center, center);
+
+  img {
+    margin: 40px;
+  }
+}
