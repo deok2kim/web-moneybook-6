@@ -1,5 +1,6 @@
 import Component from '@/utils/Component';
 import './index.scss';
+import { categoryColors } from '@/constants/categoryColors';
 
 export default class Badge extends Component {
   template() {
@@ -9,5 +10,11 @@ export default class Badge extends Component {
         <p class="badge__title">${title}</p>
       </div>
     `;
+  }
+
+  render() {
+    super.render();
+    this.$target.querySelector('.badge').style.backgroundColor =
+      categoryColors[this.state.title];
   }
 }
