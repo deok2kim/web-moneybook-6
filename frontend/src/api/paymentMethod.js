@@ -1,7 +1,7 @@
-const BASE_URL = 'http://localhost:5001/api';
+const BASE_URL = process.env.BASE_URL;
 
 export const getPaymentMethod = async () => {
-  const res = await fetch(`${BASE_URL}/payment_method`, {
+  const res = await fetch(`${BASE_URL}/api/payment_method`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ export const getPaymentMethod = async () => {
 };
 
 export const createPaymentMethod = async (params) => {
-  const res = await fetch(`${BASE_URL}/payment_method`, {
+  const res = await fetch(`${BASE_URL}/api/payment_method`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export const createPaymentMethod = async (params) => {
 };
 
 export const deletePaymentMethod = async (params) => {
-  const res = await fetch(`${BASE_URL}/payment_method/${params.id}`, {
+  const res = await fetch(`${BASE_URL}/api/payment_method/${params.id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

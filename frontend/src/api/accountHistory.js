@@ -1,7 +1,7 @@
-const BASE_URL = 'http://localhost:5001/api';
+const BASE_URL = process.env.BASE_URL;
 
 export const getAccountHistory = async (month) => {
-  const res = await fetch(`${BASE_URL}/money_book/${month}`, {
+  const res = await fetch(`${BASE_URL}/api/money_book/${month}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export const getAccountRangeHistory = async (month) => {
     startMonth -= 6;
   }
   const res = await fetch(
-    `${BASE_URL}/money_book/?start=${`${startYear}${
+    `${BASE_URL}/api/money_book/?start=${`${startYear}${
       startMonth < 10 ? '0' + String(startMonth) : String(startMonth)
     }`}&end=${month}`,
     {
@@ -37,7 +37,7 @@ export const getAccountRangeHistory = async (month) => {
 };
 
 export const createAccountHistory = async (params) => {
-  const res = await fetch(`${BASE_URL}/money_book`, {
+  const res = await fetch(`${BASE_URL}/api/money_book`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export const createAccountHistory = async (params) => {
 };
 
 export const updateAccountHistory = async (params) => {
-  const res = await fetch(`${BASE_URL}/money_book/${params.id}`, {
+  const res = await fetch(`${BASE_URL}/api/money_book/${params.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

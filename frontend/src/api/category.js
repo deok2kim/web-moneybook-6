@@ -1,7 +1,7 @@
-const BASE_URL = 'http://localhost:5001/api';
+const BASE_URL = process.env.BASE_URL;
 
 export const getCategory = async () => {
-  const res = await fetch(`${BASE_URL}/category`, {
+  const res = await fetch(`${BASE_URL}/api/category`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

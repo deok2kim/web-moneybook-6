@@ -2,6 +2,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dotenv = require('dotenv');
+const webpack = require('webpack');
+
+dotenv.config();
+
+const environmentVariables = ['BASE_URL'];
 
 const config = {
   entry: './src/index.js',
@@ -52,7 +58,7 @@ const config = {
     ],
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.scss'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
@@ -68,6 +74,7 @@ const config = {
       type: 'module',
     }),
     new CleanWebpackPlugin({ filename: 'build.js' }),
+    new webpack.EnvironmentPlugin(environmentVariables),
   ],
 };
 
