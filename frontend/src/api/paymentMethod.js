@@ -22,3 +22,14 @@ export const createPaymentMethod = async (params) => {
   const json = await res.json();
   return json;
 };
+
+export const deletePaymentMethod = async (params) => {
+  const res = await fetch(`${BASE_URL}/payment_method/${params.id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const json = await res.json();
+  return json;
+};
