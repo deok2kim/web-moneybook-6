@@ -15,14 +15,14 @@ export default class Header extends Component {
   template() {
     const { currentMonth } = this.state;
     return /*html*/ `
-      <div class="logo">우아한 가계부</div>
+      <div class="logo"><button>우아한 가계부</button></div>
       <div class="month-year">
-        <img class="arrow-left" src=${arrowLeft} />
+        <img class="arrow-left arrow" src=${arrowLeft} />
         <div class="month-year__wrapper">
           <span class="month-year__month">${currentMonth % 100}월</span>
           <span class="month-year__year">${parseInt(currentMonth / 100)}</span>
         </div>
-        <img class="arrow-right" src=${arrowRight} />
+        <img class="arrow-right arrow" src=${arrowRight} />
       </div>
       <div class="tab">
         <a href=""><img src=${내역} class="router-btn" data-url="/"/></a>
@@ -32,6 +32,18 @@ export default class Header extends Component {
     `;
   }
 
+  render() {
+    super.render();
+    this.highlightIcon();
+  }
+  highlightIcon() {
+    [...this.$target.querySelectorAll('.router-btn')].forEach(($el) => {
+      $el.classList.remove('router-btn--active');
+      if ($el.dataset.url === location.pathname) {
+        $el.classList.add('router-btn--active');
+      }
+    });
+  }
   handleMonthClick(isNext) {
     const { currentMonth } = this.state;
 
@@ -51,16 +63,16 @@ export default class Header extends Component {
         if (location.pathname === url) return;
         window.history.pushState({}, {}, url);
         route();
-      } else if (target.className === 'arrow-right') {
+      } else if (target.classList.contains('arrow-right')) {
         this.handleMonthClick(true);
-      } else if (target.className === 'arrow-left') {
+      } else if (target.classList.contains('arrow-left')) {
         this.handleMonthClick(false);
-      } else if (target.className === 'logo') {
+      } else if (target.closest('.logo')) {
         const url = '/';
-        if (location.pathname === url) return;
         window.history.pushState({}, {}, url);
         route();
       }
+      this.highlightIcon();
     });
   }
 
