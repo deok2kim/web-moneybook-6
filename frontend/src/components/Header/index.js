@@ -6,6 +6,8 @@ import 통계 from '@/assets/images/통계.svg';
 import 달력 from '@/assets/images/달력.svg';
 import 내역 from '@/assets/images/내역.svg';
 
+import { calculateMonth } from '@/utils/common';
+
 import { route } from '@/router';
 import controller from '@/controller';
 
@@ -31,13 +33,12 @@ export default class Header extends Component {
   }
 
   handleMonthClick(isNext) {
-    let { currentMonth } = this.state;
-    if (isNext) {
-      currentMonth = currentMonth === 12 ? 1 : ++currentMonth;
-    } else {
-      currentMonth = currentMonth === 1 ? 12 : --currentMonth;
-    }
-    controller.setStoreData({ key: 'currentMonth', nextState: currentMonth });
+    const { currentMonth } = this.state;
+
+    controller.setStoreData({
+      key: 'currentMonth',
+      nextState: calculateMonth(currentMonth, isNext),
+    });
     controller.setStoreData({ key: 'selectedCategory', nextState: '' });
   }
 

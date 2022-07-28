@@ -12,8 +12,8 @@ export const getAccountHistory = async (month) => {
 };
 
 export const getAccountRangeHistory = async (month) => {
-let startMonth = month % 100
-let startYear = parseInt(month / 100)
+  let startMonth = month % 100;
+  let startYear = parseInt(month / 100);
 
   if (startMonth < 7) {
     startYear--;
