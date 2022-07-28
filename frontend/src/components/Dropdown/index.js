@@ -4,7 +4,7 @@ import './index.scss';
 import controller from '@/controller';
 
 import deleteIcon from '@/assets/images/deleteIcon.svg';
-import { deletePaymentMethod } from '../../api/paymentMethod';
+import { deletePaymentMethod } from '@/api/paymentMethod';
 
 export default class Dropdown extends Component {
   template() {
