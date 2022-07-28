@@ -1,5 +1,6 @@
 import './index.scss';
 import Component from '@/utils/Component';
+import { setComma } from '@/utils/common';
 
 export default class DateBox extends Component {
   template() {
@@ -19,13 +20,13 @@ export default class DateBox extends Component {
     return `
     <ul class="calendar__container--date-Box-contents">
       <li class="calendar__item--data-Box-income">${
-        dayIncome === 0 ? '' : dayIncome
+        dayIncome === 0 ? '' : setComma(dayIncome)
       }</li>
       <li class="calendar__item--data-Box-expenditure">${
-        dayExpenditure === 0 ? '' : dayExpenditure
+        dayExpenditure === 0 ? '' : setComma(dayExpenditure)
       }</li>
       <li class="calendar__item--data-Box-total">${
-        dayTotal === 0 ? '' : dayTotal
+        dayTotal === 0 ? '' : setComma(dayTotal)
       }</li>
     </ul>
     <div class="calendar__item--date-Box-text">${curDate ? curDate : ''} </div>

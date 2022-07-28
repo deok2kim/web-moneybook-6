@@ -1,4 +1,5 @@
 import Component from '@/utils/Component';
+import { setComma } from '@/utils/common';
 import './index.scss';
 
 export default class ExpendituresList extends Component {
@@ -13,7 +14,7 @@ export default class ExpendituresList extends Component {
           </div>
           <div class="expenditures__list-item-text--item-percent">${percent}%</div>
           <div class="expenditures__list-item-text--item-amount">
-            ${amount}
+            ${setComma(amount)}
           </div>
         </li>`;
       },

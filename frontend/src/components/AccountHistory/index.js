@@ -6,6 +6,7 @@ import { dataProcessing } from '@/utils/dataProcessing';
 import controller from '@/controller';
 
 import AccountHistoryInfo from '@/components/AccountHistoryInfo';
+import { setComma } from '@/utils/common';
 
 export class HistoryItem extends Component {
   template() {
@@ -19,7 +20,7 @@ export class HistoryItem extends Component {
           <p class="history-item__payment-method">${paymentMethod}</p>
           <p class="history-item__amount">${
             isIncome === '지출' ? '-' : ''
-          }${amount}원</p>
+          }${setComma(amount)}원</p>
         </div>
     `;
   }
@@ -49,12 +50,12 @@ export class HistoryHeader extends Component {
           <p class="history-header__amountTotal">
           ${
             totalIncome > 0 && !this.state.selectedCategory
-              ? '수입' + totalIncome
+              ? '수입 ' + setComma(totalIncome)
               : ''
           }
           ${
             totalExpenditure > 0 && !this.state.selectedCategory
-              ? '지출' + totalExpenditure
+              ? '지출 ' + setComma(totalExpenditure)
               : ''
           }</p>
         </div>

@@ -9,6 +9,11 @@ export const calculateMonth = (currentYearMonth, isNext) => {
   }
 };
 
+export const setComma = (value) => {
+  if (typeof value !== 'string') value = value.toString();
+  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
 Number.prototype.fillZero = function (width) {
   let n = String(this);
   return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;

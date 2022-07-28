@@ -1,5 +1,6 @@
 import Component from '@/utils/Component';
 import './index.scss';
+import { setComma } from '../../utils/common';
 
 export default class LineChart extends Component {
   template() {
@@ -31,7 +32,7 @@ export default class LineChart extends Component {
       prevX = x;
       prevY = y;
       ctx.arc(x, y, 2, 0, 2 * Math.PI);
-      ctx.fillText(expenditure, x, y - 10);
+      ctx.fillText(setComma(expenditure), x, y - 10);
       ctx.stroke();
     });
   }

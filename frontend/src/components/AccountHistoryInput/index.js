@@ -7,6 +7,7 @@ import saveActive from '@/assets/images/saveActive.svg';
 import chevronDown from '@/assets/images/chevronDown.svg';
 import Dropdown from '@/components/Dropdown';
 import controller from '@/controller';
+import { setComma } from '@/utils/common';
 
 export default class AccountHistoryInput extends Component {
   template() {
@@ -63,7 +64,7 @@ export default class AccountHistoryInput extends Component {
                 ? `<img src=${minus} class="isIncome-btn" />`
                 : `<img src=${plus} class="isIncome-btn" />`
             }
-              <input class="input__content__input" placeholder="입력하세요" name="amount" value="${this.setDot(
+              <input class="input__content__input" placeholder="입력하세요" name="amount" value="${setComma(
                 amount,
               )}" />
               <p class="input__content__text">원</p>
