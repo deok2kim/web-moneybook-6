@@ -55,6 +55,11 @@ export default class Header extends Component {
         this.handleMonthClick(true);
       } else if (target.className === 'arrow-left') {
         this.handleMonthClick(false);
+      } else if (target.className === 'logo') {
+        const url = '/';
+        if (location.pathname === url) return;
+        window.history.pushState({}, {}, url);
+        route();
       }
     });
   }
