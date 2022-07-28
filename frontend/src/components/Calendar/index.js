@@ -1,5 +1,6 @@
 import Component from '@/utils/Component';
 import DateBox from '@/components/DateBox/index';
+import { setCurrentDate } from '@/utils/common';
 import './index.scss';
 
 export default class Calendar extends Component {
@@ -8,9 +9,15 @@ export default class Calendar extends Component {
     let dates = this.createDates();
 
     dates.forEach((date, i) => {
+      const isSameDay =
+        setCurrentDate().split('-').join('') ===
+        `${this.state.currentMonth}${date < 10 ? '0' + date : date}`;
       dates[i] = `<div class="calendar__container--date-Box" data-month = '${
-        this.state.month + 1
-      }' data-date = '${date}'></div>`;
+        this.state.currentMonth + 1
+      }' data-date = '${date}' style="background-color:${
+        isSameDay ? '#F5F5F5' : ''
+      }"></div>`;
+      console.log(dates[i]);
     });
 
     return dates.join('');

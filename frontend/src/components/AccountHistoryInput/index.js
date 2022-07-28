@@ -11,7 +11,6 @@ import { setComma, setCurrentDate, isDifferent } from '@/utils/common';
 
 export default class AccountHistoryInput extends Component {
   template() {
-    console.log(this.state);
     let { isInputIncome, isInputDataFilled, inputs } = this.state;
 
     let { category, date, content, amount, paymentMethod } = inputs;
