@@ -7,10 +7,11 @@ import saveActive from '@/assets/images/saveActive.svg';
 import chevronDown from '@/assets/images/chevronDown.svg';
 import Dropdown from '@/components/Dropdown';
 import controller from '@/controller';
-import { setComma, setCurrentDate } from '@/utils/common';
+import { setComma, setCurrentDate, isDifferent } from '@/utils/common';
 
 export default class AccountHistoryInput extends Component {
   template() {
+    console.log(this.state);
     let { isInputIncome, isInputDataFilled, inputs } = this.state;
 
     let { category, date, content, amount, paymentMethod } = inputs;
@@ -146,6 +147,21 @@ export default class AccountHistoryInput extends Component {
         });
       } else if (target.className === 'save-btn') {
         if (this.state.historyEditState.isEditing) {
+          const {
+            amount,
+            category,
+            content,
+            date,
+            id,
+            payment_method: paymentMethod,
+          } = this.state.historyEditState.inputs;
+          if (
+            !isDifferent(
+              { amount, category, content, date, id, paymentMethod },
+              this.state.inputs,
+            )
+          )
+            return;
           const data = {
             category_id: this.getId('categories', 'category'),
             payment_method_id: this.getId('paymentMethods', 'paymentMethod'),
@@ -177,7 +193,11 @@ export default class AccountHistoryInput extends Component {
 
     this.$target.addEventListener('change', (e) => {
       const { name, value } = e.target;
-      this.setInputs(name, value);
+      if (name === 'amount') {
+        this.setInputs(name, this.dotNumberToPureNumber(value));
+      } else {
+        this.setInputs(name, value);
+      }
     });
   }
 

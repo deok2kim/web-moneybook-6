@@ -24,3 +24,8 @@ export const setCurrentDate = () => {
     2,
   )}-${new Date().getDate().fillZero(2)}`;
 };
+
+export const isDifferent = (prevData, curData) => {
+  // 현재 데이터(curData 의 6가지 데이터 (amount, category, content, date, id, paymentMethod) 를 기준으로 비교)
+  return Object.keys(curData).some((key) => prevData[key] !== curData[key]);
+};
