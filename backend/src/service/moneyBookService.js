@@ -4,7 +4,7 @@ exports.getMoneyBookData = async (date) => {
   const connection = await pool.getConnection();
   try {
     const [data] = await connection.query(
-      `SELECT mb.id, mb.date, mb.category_id, ct.name as category, mb.content, mb.payment_method_id, pm.name as payment_method, ct.isIncome, mb.amount FROM money_book mb, payment_method pm, category ct where mb.category_id = ct.id AND mb.payment_method_id = pm.id AND DATE_FORMAT(date, '%Y%m') = DATE_FORMAT(now(), ?) order by date desc`,
+      `select nt.id, nt.date, nt.content, nt.amount, nt.category_id, ct.name as category, nt.payment_method_id, nt.payment_method, ct.isIncome from (select mb.id, mb.date, mb.content, mb.amount, mb.category_id, pm.name as payment_method, mb.payment_method_id from money_book as mb left join payment_method as pm on mb.payment_method_id = pm.id) as nt left join category as ct on nt.category_id = ct.id where DATE_FORMAT(date, '%Y%m') = DATE_FORMAT(now(), ?) order by date desc`,
       [date],
     );
     return data;

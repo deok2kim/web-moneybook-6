@@ -17,7 +17,9 @@ export class HistoryItem extends Component {
           <p class="history-item__content">${content}</p>
         </div>
         <div class="history-item__pay-wrapper">
-          <p class="history-item__payment-method">${paymentMethod}</p>
+          <p class="history-item__payment-method">${
+            paymentMethod ? paymentMethod : ''
+          }</p>
           <p class="history-item__amount">${
             isIncome === '지출' ? '-' : ''
           }${setComma(amount)}원</p>
