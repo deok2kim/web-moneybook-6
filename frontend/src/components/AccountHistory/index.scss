@@ -18,7 +18,7 @@
   }
 
   &__payment-method {
-    font-family: 'Noto Sans KR';
+    font-family: 'BMDOHYEON';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -27,7 +27,7 @@
   }
 
   &__content {
-    font-family: 'Noto Sans KR';
+    font-family: 'BMDOHYEON';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -36,7 +36,7 @@
   }
 
   &__amount {
-    font-family: 'Noto Sans KR';
+    font-family: 'BMDOHYEON';
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -49,7 +49,7 @@
   @include flex(row, space-between, center);
 
   &__date {
-    font-family: 'Noto Sans KR';
+    font-family: 'BMDOHYEON';
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -58,7 +58,7 @@
   }
   &__amountTotal,
   &__dayname {
-    font-family: 'Noto Sans KR';
+    font-family: 'BMDOHYEON';
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
