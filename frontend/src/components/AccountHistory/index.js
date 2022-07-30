@@ -1,11 +1,10 @@
 import Component from '@/utils/Component';
-
-import './index.scss';
+import AccountHistoryInfo from '@/components/AccountHistoryInfo';
 import Badge from '@/components/Badge';
-import { dataProcessing } from '@/utils/dataProcessing';
 import controller from '@/controller';
 
-import AccountHistoryInfo from '@/components/AccountHistoryInfo';
+import './index.scss';
+import { dataProcessing } from '@/utils/dataProcessing';
 import { setComma } from '@/utils/common';
 
 export class HistoryItem extends Component {
@@ -27,7 +26,7 @@ export class HistoryItem extends Component {
     `;
   }
 
-  mountBadge() {
+  renderBadge() {
     new Badge(this.$target.querySelector('.history-item__category'), {
       title: this.state.category,
     });
@@ -35,13 +34,14 @@ export class HistoryItem extends Component {
 
   render() {
     super.render();
-    this.mountBadge();
+    this.renderBadge();
   }
 }
 
 export class HistoryHeader extends Component {
   template() {
-    const { totalIncome, totalExpenditure, date, dayname } = this.state;
+    const { totalIncome, totalExpenditure, date, dayname, selectedCategory } =
+      this.state;
     return /*html*/ `
       <section class="history-header">
         <div class="history-header__day-wrapper">
@@ -49,17 +49,15 @@ export class HistoryHeader extends Component {
           <p class="history-header__dayname">${dayname}</p>
         </div>
         <div class="history-item__amount-wrapper">
-          <p class="history-header__amountTotal">
-          ${
-            totalIncome > 0 && !this.state.selectedCategory
-              ? '수입 ' + setComma(totalIncome)
-              : ''
-          }
-          ${
-            totalExpenditure > 0 && !this.state.selectedCategory
-              ? '지출 ' + setComma(totalExpenditure)
-              : ''
-          }</p>
+        ${
+          selectedCategory
+            ? `
+            <p class="history-header__amountTotal">
+            ${totalIncome ? '수입 ' + setComma(totalIncome) : ''}
+            ${totalExpenditure ? '지출 ' + setComma(totalExpenditure) : ''}</p>
+            `
+            : ''
+        }
         </div>
       </section>
       `;
@@ -67,15 +65,16 @@ export class HistoryHeader extends Component {
 }
 
 class HistoryDaily extends Component {
-  mountHeader() {
+  renderHistoryHeader() {
+    const { date, dayname, selectedCategory, itemList } = this.state;
     new HistoryHeader(this.$target, {
-      date: this.state.date,
-      dayname: this.state.dayname,
-      selectedCategory: this.state.selectedCategory,
-      ...dataProcessing.getTotal(this.state.itemList),
+      date,
+      dayname,
+      selectedCategory,
+      ...dataProcessing.getTotal(itemList),
     });
   }
-  mountHistoryItem() {
+  renderHistoryItem() {
     this.state.itemList.forEach((historyItem) => {
       const $nextTarget = document.createElement('section');
       $nextTarget.classList.add('history-item');
@@ -86,20 +85,20 @@ class HistoryDaily extends Component {
   }
   render() {
     super.render();
-    this.mountHeader();
-    this.mountHistoryItem();
+    this.renderHistoryHeader();
+    this.renderHistoryItem();
   }
 }
 
 export default class AccountHistory extends Component {
   template() {
     return `
-    <section class="history-info-container"></section>
-    <section class="history"></section>
+      <section class="history-info-container"></section>
+      <section class="history"></section>
     `;
   }
 
-  mountHistoryDaily() {
+  renderHistoryDaily() {
     const $history = document.querySelector('.history');
     $history.innerHTML = '';
     if (this.state.selectedCategory) {
@@ -140,34 +139,36 @@ export default class AccountHistory extends Component {
     return res;
   }
 
-  mountHistoryInfo() {
+  renderHistoryInfo() {
     new AccountHistoryInfo(
       this.$target.querySelector('.history-info-container'),
-      this.state,
+      {
+        accountHistoryTotalInfo: this.state.accountHistoryTotalInfo,
+      },
     );
   }
 
   render() {
     super.render();
-    if (this.state.accountHistory.length) this.mountHistoryDaily();
-    if (!this.state.selectedCategory) this.mountHistoryInfo();
+    if (this.state.accountHistory.length) this.renderHistoryDaily();
+    if (!this.state.selectedCategory) this.renderHistoryInfo();
   }
 
   setEvent() {
     if (this.state.selectedCategory) return;
-    document.querySelector('.mainPage').addEventListener('click', (e) => {
+    this.$target.addEventListener('click', (e) => {
       const $historyItem = e.target.closest('.history-item');
       if ($historyItem) {
         const { id } = $historyItem.dataset;
-        const selectedHistoy = this.state.accountHistory.find(
+        const selectedHistory = this.state.accountHistory.find(
           (history) => history.id === +id,
         );
-        if (selectedHistoy) {
+        if (selectedHistory) {
           controller.setStoreData({
             key: 'historyEditState',
             nextState: {
               isEditing: true,
-              inputs: selectedHistoy,
+              inputs: selectedHistory,
             },
           });
         }

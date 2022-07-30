@@ -208,6 +208,21 @@ export default class AccountHistoryInput extends Component {
     });
   }
 
+  init() {
+    this.state = {
+      ...this.state,
+      inputs: {
+        category: '',
+        date: '',
+        content: '',
+        amount: '',
+        paymentMethod: '',
+      },
+      isInputIncome: '지출',
+      isInputDataFilled: false,
+    };
+  }
+
   dataSubscribe() {
     const historyEditState = controller.subscribe({
       $el: this,

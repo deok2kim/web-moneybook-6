@@ -7,10 +7,11 @@ import { setComma } from '@/utils/common';
 
 export default class AccountHistoryInfo extends Component {
   template() {
-    const { accountHistoryTotalInfo, historyFilter } = this.state;
-    const { totalIncome, totalExpenditure, totalCount } =
-      accountHistoryTotalInfo;
-    const { income, expenditure } = historyFilter;
+    const {
+      accountHistoryTotalInfo: { totalCount, totalIncome, totalExpenditure },
+      historyFilter: { income, expenditure },
+    } = this.state;
+
     return /*html*/ `
       <section class="history-info">
         <div>

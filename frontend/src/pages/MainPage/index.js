@@ -5,8 +5,9 @@ import controller from '@/controller';
 import './index.scss';
 import { dataProcessing } from '@/utils/dataProcessing';
 import { createAccountHistory } from '@/api/accountHistory';
-import { updateAccountHistory } from '../../api/accountHistory';
+import { updateAccountHistory } from '@/api/accountHistory';
 import Empty from '@/components/Empty';
+
 export default class MainPage extends Component {
   template() {
     return /*html*/ `
@@ -19,31 +20,24 @@ export default class MainPage extends Component {
 
   render() {
     super.render();
-
+    const { categories, paymentMethods } = this.state;
     new AccountHistoryInput(
       this.$target.querySelector('.input-bar-container'),
       {
-        ...this.state,
-        inputs: {
-          category: '',
-          date: '',
-          content: '',
-          amount: '',
-          paymentMethod: '',
-        },
-        isInputIncome: '지출',
-        isInputDataFilled: false,
+        categories,
+        paymentMethods,
         onCreateAccountHistory: this.handleCreateAccountHistory,
         onUpdateAccountHistory: this.handleUpdateAccountHistory,
       },
     );
-    if (
-      !this.state.accountHistoryTotalInfo ||
-      !this.state.accountHistory.length
-    ) {
+    if (!this.state.accountHistory) {
+      return;
+    }
+    if (!this.state.accountHistory.length) {
       new Empty(this.$target.querySelector('.history-container'));
       return;
     }
+
     new AccountHistory(
       this.$target.querySelector('.history-container'),
       this.state,
@@ -65,7 +59,7 @@ export default class MainPage extends Component {
   };
 
   async dataSubscribe() {
-    const currentMonth = controller.subscribe({
+    controller.subscribe({
       $el: this,
       key: 'currentMonth',
     });
