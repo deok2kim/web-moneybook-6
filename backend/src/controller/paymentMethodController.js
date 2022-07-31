@@ -1,5 +1,5 @@
 const paymentMethodService = require('../service/paymentMethodService');
-const infoStore = require('../config/infoStore').infoStore;
+const infoStore = require('../constant/infoStore').infoStore;
 
 exports.addPaymentMethodData = async (req, res) => {
   try {

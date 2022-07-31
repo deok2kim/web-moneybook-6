@@ -1,13 +1,9 @@
-const pool = require('../config/db');
+const { categoryModel } = require('../model/categoryModel');
 
 exports.getCategoryData = async () => {
-  const connection = await pool.getConnection();
   try {
-    const [data] = await connection.query('SELECT * FROM category');
-    return data;
+    return await categoryModel('getData');
   } catch (err) {
     throw err;
-  } finally {
-    connection.release();
   }
 };

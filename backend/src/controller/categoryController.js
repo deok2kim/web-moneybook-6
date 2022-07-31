@@ -1,5 +1,5 @@
 const categoryService = require('../service/categoryService');
-const infoStore = require('../config/infoStore').infoStore;
+const infoStore = require('../constant/infoStore').infoStore;
 
 exports.getCategoryData = async (req, res) => {
   try {

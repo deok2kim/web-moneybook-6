@@ -1,10 +1,10 @@
 const moneyBookService = require('../service/moneyBookService');
-const infoStore = require('../config/infoStore').infoStore;
+const infoStore = require('../constant/infoStore').infoStore;
 
-exports.getMoneyBookData = async (req, res) => {
+exports.getMoneyBookMonthData = async (req, res) => {
   try {
     const { date } = req.params;
-    data = await moneyBookService.getMoneyBookData(date);
+    data = await moneyBookService.getMoneyBookMonthData(date);
     res.json(data);
   } catch {
     res.json({
