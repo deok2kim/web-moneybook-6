@@ -9,6 +9,7 @@
   order: 0;
   flex-grow: 0;
   border-bottom: 1px $line solid;
+  cursor: pointer;
   &-badge--item-badge {
     @include flex-center();
     flex-direction: row;

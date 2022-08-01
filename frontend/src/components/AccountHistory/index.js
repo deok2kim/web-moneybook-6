@@ -77,6 +77,10 @@ class HistoryDaily extends Component {
     this.state.itemList.forEach((historyItem) => {
       const $nextTarget = document.createElement('section');
       $nextTarget.classList.add('history-item');
+
+      !this.state.selectedCategory
+        ? $nextTarget.classList.add('pointer')
+        : null;
       $nextTarget.dataset.id = historyItem.id;
       this.$target.appendChild($nextTarget);
       new HistoryItem($nextTarget, historyItem);

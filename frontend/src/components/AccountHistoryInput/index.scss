@@ -6,6 +6,9 @@
   border: 1px solid $line;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
+  input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
 
   .divider {
     width: 1px;
@@ -87,10 +90,15 @@
 
   .isIncome-btn {
     height: 20px;
+    cursor: pointer;
   }
 }
 
 #paymentMethod,
 #category {
   position: relative;
+  cursor: pointer;
+  input {
+    cursor: pointer;
+  }
 }

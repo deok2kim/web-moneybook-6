@@ -43,7 +43,7 @@ export default class AccountHistoryInput extends Component {
 
         <div class="input-wrapper" id="paymentMethod">
           <p class="input__title">결제수단</p>
-          <button class="input__content__dropdown">
+          <button type="button" class="input__content__dropdown">
           <input class="input__content__input" name="paymentMethod" placeholder="선택하세요" disabled value="${paymentMethod}" />
 
           <img src=${chevronDown} />
