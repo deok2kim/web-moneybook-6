@@ -3,6 +3,12 @@
   height: 70px;
   border-top: 1px solid $line;
   border-bottom: 1px solid $line;
+  &.pointer {
+    cursor: pointer;
+    &:hover {
+      background-color: $background;
+    }
+  }
 
   &__content-wrapper {
     @include flex(row, start, center);

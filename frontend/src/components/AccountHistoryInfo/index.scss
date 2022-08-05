@@ -24,5 +24,6 @@
   &__wrapper {
     @include flex(row, center, center);
     gap: 8px;
+    cursor: pointer;
   }
 }
